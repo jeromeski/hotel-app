@@ -22,6 +22,6 @@ app.use(morgan("dev"));
 // route middleware
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => console.log(`Server is running on port 8000`));
+app.listen(PORT, () => console.log(`Server is running on port 4000`));

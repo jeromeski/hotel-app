@@ -1,11 +1,18 @@
-
+import RegisterForm from "components/auth/RegisterForm";
+import { Fragment } from "react";
 
 const Register = () => {
-  return (
-    <div className="container-fluid h1 p-5 text-center">
-      
-    </div>
-  );
+	return (
+		<Fragment>
+			<div className="container">
+				<div className="row">
+					<div className="col-md-6 offset-md-3">
+						<RegisterForm />
+					</div>
+				</div>
+			</div>
+		</Fragment>
+	);
 };
 
 export default Register;

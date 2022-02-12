@@ -24,7 +24,14 @@ export function AuthProvider(props) {
 		});
 	};
 
-	const value = useMemo(() => ({ ...state, login, logout }), [state]);
+  const register = (payload) => {
+		dispatch({
+			type: "REGISTER_USER",
+			payload
+		});
+	};
+
+	const value = useMemo(() => ({ ...state, login, logout, register }), [state]);
 	return <Context.Provider value={value} {...props} />;
 }
 
