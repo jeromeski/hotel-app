@@ -1,4 +1,4 @@
-export const initialState = { auth: {} };
+export const initialState = { auth: null };
 
 export default function authReducer(state, action) {
 	switch (action.type) {
@@ -11,6 +11,9 @@ export default function authReducer(state, action) {
 			return {
 				auth: null
 			};
+
+		case "REGISTER_USER":
+			return {};
 		default:
 			return state;
 	}

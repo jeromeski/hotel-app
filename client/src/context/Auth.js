@@ -1,24 +1,27 @@
+import { createContext, useContext, useReducer, useEffect } from "react";
 import useLocalStorage from "react-use/lib/useLocalStorage";
 import { initializer } from "utils/initializer";
 
 import authReducer, { initialState } from "./authReducer";
-
-const { createContext, useContext, useMemo, useReducer, useEffect } = require("react");
 
 const Context = createContext();
 
 Context.displayName = "AuthContext";
 
 export const AuthProvider = (props) => {
-	const [state, dispatch] = useReducer(authReducer, JSON.parse(initializer(initialState, "auth")));
-	const [auth, setAuth] = useLocalStorage("auth", {});
-	console.log("current auth state ==> ", state);
-	console.log("localstorage ==> ", auth);
+	const [{ auth }, dispatch] = useReducer(
+		authReducer,
+		JSON.parse(initializer(initialState, "auth"))
+	);
+	const [authStore, setAuthStore] = useLocalStorage("auth", {});
+	console.log("localstorage ==> ", authStore);
 	useEffect(() => {
-		if (state) {
-			setAuth(state.auth);
+		if (auth) {
+			setAuthStore(auth);
+		} else {
+			setAuthStore(null);
 		}
-	}, [state, setAuth]);
+	}, [auth, setAuthStore]);
 
 	const login = (payload) => {
 		dispatch({
@@ -33,14 +36,14 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-	const register = (payload) => {
+	const register = () => {
 		dispatch({
-			type: "REGISTER_USER",
-			payload
+			type: "REGISTER_USER"
 		});
 	};
 
-	const value = useMemo(() => ({ ...state, login, logout, register }), [state]);
+	const value = { auth, login, logout, register };
+	console.log(value);
 	return <Context.Provider value={value} {...props} />;
 };
 
