@@ -2,7 +2,6 @@ import { useAuthContext } from "context/Auth";
 
 const Home = () => {
 	const { user } = useAuthContext();
-	console.log(user);
 
 	return (
 		<div className="container-fluid h1 p-5">

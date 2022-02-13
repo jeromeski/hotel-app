@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useSignupMutation } from "framework/basic-rest/auth/use-signup";
 import { useHistory } from "react-router-dom";
-import RegisterForm from "components/auth/RegisterForm";
+import RegisterForm from "components/form/auth/RegisterForm";
 import { useForm } from "react-hook-form";
 import TextInput from "components/form/TextInput";
 import TextError from "components/form/TextError";

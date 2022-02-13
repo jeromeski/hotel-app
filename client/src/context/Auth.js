@@ -10,13 +10,13 @@ const Context = createContext();
 Context.displayName = "AuthContext";
 
 export const AuthProvider = (props) => {
-	const [auth, setAuth] = useLocalStorage("auth", initialState);
 	const [state, dispatch] = useReducer(authReducer, JSON.parse(initializer(initialState, "auth")));
+	const [auth, setAuth] = useLocalStorage("auth", {});
 	console.log("current auth state ==> ", state);
 	console.log("localstorage ==> ", auth);
 	useEffect(() => {
 		if (state) {
-			setAuth(state);
+			setAuth(state.auth);
 		}
 	}, [state, setAuth]);
 
@@ -27,10 +27,9 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-	const logout = (payload) => {
+	const logout = () => {
 		dispatch({
-			type: "LOGOUT",
-			payload
+			type: "LOGOUT"
 		});
 	};
 

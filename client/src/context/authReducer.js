@@ -9,7 +9,7 @@ export default function authReducer(state, action) {
 
 		case "LOGOUT":
 			return {
-				...action.payload
+				auth: null
 			};
 		default:
 			return state;

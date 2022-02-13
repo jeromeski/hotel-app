@@ -1,17 +1,20 @@
-import LoginForm from "components/auth/LoginForm";
+import LoginForm from "components/form/auth/LoginForm";
 import TextError from "components/form/TextError";
 import TextInput from "components/form/TextInput";
 import { useLoginMutation } from "framework/basic-rest/auth/use-login";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
 	const { mutate: signIn, isLoading, isError } = useLoginMutation();
 	const {
 		formState: { errors },
 		register,
-		handleSubmit
+		handleSubmit,
+		reset
 	} = useForm();
+	const history = useHistory();
 
 	const onSubmit = (data) => {
 		const noop = () => {};
@@ -19,6 +22,8 @@ const Login = () => {
 			return noop();
 		}
 		signIn(data);
+		reset();
+		history.push("/");
 	};
 
 	return (
