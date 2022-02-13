@@ -4,5 +4,5 @@ export const initializer = (initialState, name) => {
 		return item;
 	}
 
-	return initialState;
+	return JSON.stringify(initialState);
 };

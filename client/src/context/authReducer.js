@@ -1,11 +1,10 @@
-export const initialState = { user: { name: "Ryan", role: "admin" } };
+export const initialState = { auth: {} };
 
 export default function authReducer(state, action) {
 	switch (action.type) {
 		case "LOGIN_USER":
 			return {
-				...state,
-				...action.payload
+				auth: action.payload
 			};
 
 		case "LOGOUT":

@@ -2,8 +2,10 @@ import express from "express";
 import { readdirSync } from "fs";
 import cors from "cors";
 import mongoose from "mongoose";
+import { urlencoded } from "body-parser";
 const morgan = require("morgan");
 require("dotenv").config();
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -17,6 +19,7 @@ mongoose
 
 // middlewares
 app.use(cors());
+app.use(bodyParser.json({ urlencoded: true }));
 app.use(morgan("dev"));
 
 // route middleware

@@ -1,4 +1,4 @@
-import { useAuthContext } from "context/app";
+import { useAuthContext } from "context/Auth";
 
 const Home = () => {
 	const { user } = useAuthContext();
