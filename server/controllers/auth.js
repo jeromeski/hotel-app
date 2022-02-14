@@ -15,7 +15,7 @@ export const register = async (req, res) => {
 	try {
 		await user.save();
 		console.log("USER CREATED", user);
-		return res.json({ ok: true });
+		return res.json({ authAttempted: true });
 	} catch (err) {
 		console.log("CREATE USER FAILED", err);
 		return res.status(400).send("Error. Try again.");

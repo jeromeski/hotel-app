@@ -26,9 +26,10 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-	const register = () => {
+	const register = (payload) => {
 		dispatch({
-			type: "REGISTER_USER"
+			type: "REGISTER_USER",
+			payload
 		});
 	};
 

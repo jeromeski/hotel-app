@@ -11,7 +11,8 @@ async function signUp(input) {
 export function useSignupMutation() {
 	const { register } = useAuthContext();
 	return useMutation((input) => signUp(input), {
-		onSuccess: (data) => {
+		onSuccess: ({ data }) => {
+			console.log(data);
 			register(data);
 			toast.success("Registration successful! Login to access your account.");
 		},
