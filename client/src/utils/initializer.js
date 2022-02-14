@@ -1,8 +1,10 @@
-export const initializer = (initialState, name) => {
-	const item = localStorage.getItem(`${name}`);
-	if (item) {
-		return item;
+export const initializer = () => {
+	let userState;
+	if (window.localStorage.getItem("auth")) {
+		userState = JSON.parse(window.localStorage.getItem("auth"));
+		return { auth: userState };
 	}
+	userState = { auth: null };
 
-	return JSON.stringify(initialState);
+	return userState;
 };

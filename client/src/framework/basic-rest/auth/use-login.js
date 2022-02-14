@@ -12,7 +12,8 @@ export function useLoginMutation() {
 	const { login } = useAuthContext();
 	return useMutation((input) => signIn(input), {
 		onSuccess: ({ data }) => {
-			login({ token: data.token, user: data.user });
+      window.localStorage.setItem("auth", JSON.stringify({ token: data.token, user: data.user }));
+			login({ token: data.token, user: data.user });      
 			toast.success("Login successful!");
 		},
 		onError: (data) => {
