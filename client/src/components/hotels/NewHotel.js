@@ -1,8 +1,10 @@
+import React from "react";
 import { useAuthContext } from "context/Auth";
 
-const Home = () => {
+function NewHotel() {
 	const { state } = useAuthContext();
 	const { auth: user } = state;
+
 	return (
 		user && (
 			<div className="container-fluid h1 p-5">
@@ -10,6 +12,6 @@ const Home = () => {
 			</div>
 		)
 	);
-};
+}
 
-export default Home;
+export default NewHotel;

@@ -10,8 +10,6 @@ Context.displayName = "AuthContext";
 export const AuthProvider = (props) => {
 	const [state, dispatch] = useReducer(authReducer, initializer());
 
-	console.log(state);
-
 	const login = (payload) => {
 		dispatch({
 			type: "LOGIN_USER",

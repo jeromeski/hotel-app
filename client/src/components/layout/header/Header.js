@@ -6,16 +6,13 @@ import "./header.css";
 import HeaderMenu from "./HeaderMenu";
 
 function Header() {
-	const { state } = useAuthContext();
-	console.log("header state auth ==>", state);
-
 	return (
 		<header className="header">
 			<div className="container pt-3 pb-3">
 				<div className="row">
 					<div className="col-sm-12 d-flex justify-content-between align-items-center">
 						<Logo />
-						<HeaderMenu state={state} />
+						<HeaderMenu />
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./get-token";
+// import { getToken } from "./get-token";
 
 const _http = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -10,10 +10,19 @@ const _http = axios.create({
 	}
 });
 
+const _httpStripe = axios.create({
+	baseURL: process.env.REACT_APP_BACKEND_URL,
+	timeout: 30000,
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json"
+	}
+});
+
 // Change request data/error here
-_http.interceptors.request.use(
+_httpStripe.interceptors.request.use(
 	(config) => {
-		const token = getToken();
+		const token = Object.values(JSON.parse(window.localStorage.auth))[0];
 		config.headers = {
 			...config.headers,
 			Authorization: `Bearer ${token ? token : ""}`
@@ -25,4 +34,5 @@ _http.interceptors.request.use(
 	}
 );
 
+export {_httpStripe};
 export default _http;

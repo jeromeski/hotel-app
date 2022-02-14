@@ -3,13 +3,20 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import Home from "pages/booking/Home";
 import Login from "pages/auth/Login";
 import Register from "pages/auth/Register";
-import "@reach/menu-button/styles.css";
-import "./assets/bootstrap.css";
+
 import Header from "components/layout/header/Header";
 import { AuthProvider } from "context/Auth";
 import { useRef } from "react";
 import { ToastContainer } from "react-toastify";
+
+import PrivateRoute from "components/PrivateRoute";
+import Dashboard from "components/user/Dashboard";
+import "@reach/menu-button/styles.css";
+import "@reach/tabs/styles.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./assets/bootstrap.css";
+import NewHotel from "components/hotels/NewHotel";
+import StripeCallback from "components/user/StripeCallback";
 
 function App() {
 	return (
@@ -21,6 +28,9 @@ function App() {
 					<Route exact path="/" component={Home} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<PrivateRoute exact path="/dashboard" component={Dashboard} />
+					<PrivateRoute exact path="/hotels/new" component={NewHotel} />
+					<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />
 				</Switch>
 			</BrowserRouter>
 		</div>
