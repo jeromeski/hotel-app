@@ -39,3 +39,18 @@ export function useStripeStatusMutation() {
 		}
 	});
 }
+
+async function accountBalance() {
+	return await _httpStripe.post(API_ENDPOINTS.STRIPE_BALANCE);
+}
+
+export function useStripeBalanceMutation() {
+	return useMutation(() => accountBalance(), {
+		onSuccess: ({ data }) => {
+			console.log(data);
+		},
+		onError: ({ response: { data } }) => {
+			//
+		}
+	});
+}
