@@ -14,7 +14,7 @@ export const useLogoutMutation = () => {
 			logout(_data);
 			toast.success("You have logged out successfully.");
 		},
-		onError: (data) => {
+		onError: ({ response: { data } }) => {
 			console.log(data, "logout error response");
 		}
 	});

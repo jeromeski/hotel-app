@@ -16,9 +16,9 @@ export function useSignupMutation() {
 			register(data);
 			toast.success("Registration successful! Login to access your account.");
 		},
-		onError: (data) => {
+		onError: ({ response: { data } }) => {
 			console.log(data);
-			toast.error("Something went wrong with your registration. Please try again later.");
+			toast.error(data);
 		}
 	});
 }

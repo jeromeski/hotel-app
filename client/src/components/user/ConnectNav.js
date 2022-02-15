@@ -5,7 +5,7 @@ import moment from "moment";
 function ConnectNav() {
 	const { state } = useAuthContext();
 	const { auth } = state;
-	console.log(auth);
+
 	return (
 		<div className="d-flex justify-content-between">
 			<h5>{auth.user.name[0]}</h5>

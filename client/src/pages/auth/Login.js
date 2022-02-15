@@ -1,13 +1,17 @@
 import LoginForm from "components/form/auth/LoginForm";
 import TextError from "components/form/TextError";
 import TextInput from "components/form/TextInput";
+import { useAuthContext } from "context/Auth";
 import { useLoginMutation } from "framework/basic-rest/auth/use-login";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
+	const { state } = useAuthContext();
+	const { auth } = state;
 	const { mutate: signIn, isLoading, isError } = useLoginMutation();
+
 	const {
 		formState: { errors },
 		register,

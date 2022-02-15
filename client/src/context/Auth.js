@@ -31,7 +31,14 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-	const value = useMemo(() => ({ state, login, logout, register }), [state]);
+  const updateWithStripe = (payload) => {
+		dispatch({
+			type: "UPDATE_WITH_STRIPE",
+			payload
+		});
+	};
+
+	const value = useMemo(() => ({ state, login, logout, register, updateWithStripe }), [state]);
 
 	return <Context.Provider value={value} {...props} />;
 };

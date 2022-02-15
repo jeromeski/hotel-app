@@ -26,13 +26,15 @@ async function accountStatus() {
 }
 
 export function useStripeStatusMutation() {
-	const { login } = useAuthContext();
+	const { updateWithStripe } = useAuthContext();
+
 	return useMutation(() => accountStatus(), {
 		onSuccess: ({ data }) => {
 			updateUserInLocalStorage(data);
-			login({ user: data });
+			updateWithStripe(data);
+			toast.success("You have successfully connected with stripe!");
 		},
-		onError: ({ data }) => {
+		onError: ({ response: { data } }) => {
 			console.log(data);
 		}
 	});

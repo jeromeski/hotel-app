@@ -4,21 +4,28 @@ export default function authReducer(state, action) {
 	switch (action.type) {
 		case "LOGIN_USER":
 			return {
-        ...state,
+				...state,
 				auth: action.payload
 			};
 
 		case "LOGOUT":
 			return {
-        ...state,
+				...state,
 				auth: action.payload
 			};
 
 		case "REGISTER_USER":
 			return {
-        ...state,
-        ...action.payload
-      };
+				...state,
+				...action.payload
+			};
+
+		case "UPDATE_WITH_STRIPE":
+			return {
+				...state,
+				auth: {...state.auth, user:{...action.payload}}
+			};
+
 		default:
 			return state;
 	}
