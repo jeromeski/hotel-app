@@ -16,10 +16,10 @@ function DashboardSeller() {
 	const connected = () => (
 		<div className="container">
 			<div className="row">
-				<div className="col-md-8 mt-5">
+				<div className="col-md-8 mt-5 d-flex justify-content-center">
 					<h2>Hotels</h2>
 				</div>
-				<div className="col-md-4 mt-5">
+				<div className="col-md-4 mt-5 d-flex justify-content-center">
 					<button type="button">
 						<Link to="/hotels/new">Add Hotels +</Link>
 					</button>

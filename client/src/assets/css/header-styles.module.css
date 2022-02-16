@@ -2,9 +2,12 @@
 
 .header {
   background-color: lightgray;
+  height: 7vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
-
-
 
 .header nav a {
   margin: 0 0.125rem;

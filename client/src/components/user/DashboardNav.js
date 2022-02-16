@@ -20,10 +20,10 @@ function DashboardNav() {
 				<TabPanel>
 					<div className="container">
 						<div className="row">
-							<div className="col-md-8 mt-5">
+							<div className="col-md-8 mt-5 d-flex justify-content-center">
 								<h2>Bookings</h2>
 							</div>
-							<div className="col-md-4 mt-5">
+							<div className="col-md-4 mt-5 d-flex justify-content-center">
 								<button type="button">Browse hotels</button>
 							</div>
 						</div>

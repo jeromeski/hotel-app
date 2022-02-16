@@ -6,7 +6,9 @@ const Home = () => {
 	return (
 		user && (
 			<div className="container-fluid h1 p-5">
-				<pre>{JSON.stringify(user, null, 4)}</pre>
+				<pre>
+					<small>{JSON.stringify(user, null, 4)}</small>
+				</pre>
 			</div>
 		)
 	);

@@ -47,10 +47,25 @@ async function accountBalance() {
 export function useStripeBalanceMutation() {
 	return useMutation(() => accountBalance(), {
 		onSuccess: ({ data }) => {
-			console.log(data);
+			console.log("Stripe balance =>", data);
 		},
 		onError: ({ response: { data } }) => {
-			//
+			console.log(data);
+		}
+	});
+}
+
+async function payoutSettings() {
+	return await _httpStripe.post(API_ENDPOINTS.STRIPE_SETTINGS);
+}
+
+export function useStripeSettingsMutation() {
+	return useMutation(() => payoutSettings(), {
+		onSuccess: ({ data }) => {
+			window.location.href = data.url;
+		},
+		onError: ({ response: { data } }) => {
+			toast.error(data);
 		}
 	});
 }

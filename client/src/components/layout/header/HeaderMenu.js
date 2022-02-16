@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
 import { useLogoutMutation } from "framework/basic-rest/auth/use-logout";
@@ -15,14 +15,6 @@ function HeaderMenu() {
 		signOut();
 		history.push("/login");
 	};
-
-	console.log(auth);
-
-	// useEffect(() => {
-	// 	if (auth) {
-	// 		console.log(JSON.parse(window.localStorage.getItem("auth").token));
-	// 	}
-	// });
 
 	return (
 		<Fragment>

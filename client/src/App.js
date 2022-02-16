@@ -11,28 +11,29 @@ import { ToastContainer } from "react-toastify";
 
 import PrivateRoute from "components/PrivateRoute";
 import Dashboard from "components/user/Dashboard";
+import NewHotel from "components/hotels/NewHotel";
+import StripeCallback from "components/user/StripeCallback";
 import "@reach/menu-button/styles.css";
 import "@reach/tabs/styles.css";
 import "react-toastify/dist/ReactToastify.css";
-import "./assets/bootstrap.css";
-import NewHotel from "components/hotels/NewHotel";
-import StripeCallback from "components/user/StripeCallback";
 
 function App() {
 	return (
 		<div className="bootstrap-wrapper">
-			<BrowserRouter>
-				<Header />
-				<ToastContainer position="top-center" />
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/login" component={Login} />
-					<Route exact path="/register" component={Register} />
-					<PrivateRoute exact path="/dashboard" component={Dashboard} />
-					<PrivateRoute exact path="/hotels/new" component={NewHotel} />
-					<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />
-				</Switch>
-			</BrowserRouter>
+			<div className="page-wrapper">
+				<BrowserRouter>
+					<Header />
+					<ToastContainer position="top-center" />
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/login" component={Login} />
+						<Route exact path="/register" component={Register} />
+						<PrivateRoute exact path="/dashboard" component={Dashboard} />
+						<PrivateRoute exact path="/hotels/new" component={NewHotel} />
+						<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />
+					</Switch>
+				</BrowserRouter>
+			</div>
 		</div>
 	);
 }

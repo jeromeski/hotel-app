@@ -5,5 +5,6 @@ export const API_ENDPOINTS = {
 	FORGET_PASSWORD: "/forget-password",
 	STRIPE_CONNECT: "/connect-account",
 	STRIPE_STATUS: "/account-status",
-	STRIPE_BALANCE: "/account-balance"
+	STRIPE_BALANCE: "/account-balance",
+	STRIPE_SETTINGS: "/payout-settings"
 };
