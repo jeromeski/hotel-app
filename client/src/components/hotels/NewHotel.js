@@ -23,18 +23,23 @@ function NewHotel() {
 			<Fragment>
 				<div className="container-fluid">
 					<div className="row" style={heightFull}>
-						<div className="col-md-4 offset-md-4 d-flex align-items-center">
+						<div className="col-md-6 offset-md-3 d-flex align-items-center">
 							<div className="container">
-								<div className="row d-flex justify-content-center pb-5">
-									<h2>Add Hotel</h2>
+								<div className="row d-flex p-3">
+									<h2 style={{ textDecoration: "underline" }}>
+										<span>New Hotel</span>
+									</h2>
 								</div>
+
 								<div className="row">
 									<div className="col-md-8">
-										<HotelForm handleImageChange={handleImageChange} />
+										<HotelForm handleImageChange={handleImageChange} setValues={setValues} />
 									</div>
 									<div className="col-md-4">
-										<img src={preview} alt="preview_image" />
-										<pre></pre>
+										<div className="img-wrapper">
+											<img className="img" src={preview} alt="preview_image" />
+										</div>
+										<pre>{JSON.stringify(values, null, 4)}</pre>
 									</div>
 								</div>
 							</div>

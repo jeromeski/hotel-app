@@ -2,6 +2,8 @@ import { useAuthContext } from "context/Auth";
 import { useStripeConnectMutation } from "framework/basic-rest/auth/use-stripe";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import buttonStyles from "assets/css/button-styles.module.css";
+import LinkButton from "components/common/LinkButton";
 
 function DashboardSeller() {
 	const { state } = useAuthContext();
@@ -20,9 +22,7 @@ function DashboardSeller() {
 					<h2>Hotels</h2>
 				</div>
 				<div className="col-md-4 mt-5 d-flex justify-content-center">
-					<button type="button">
-						<Link to="/hotels/new">Add Hotels +</Link>
-					</button>
+					<LinkButton to="/hotels/new">Add Hotels +</LinkButton>
 				</div>
 			</div>
 		</div>
@@ -34,7 +34,7 @@ function DashboardSeller() {
 					<div className="col-md-6 offset-md-3 text-center mt-5">
 						<h4>Setup stripe to post hotel rooms</h4>
 						<p>Mern partners with stripe to transfer your earning to your bank account</p>
-						<button type="button" onClick={handleClick}>
+						<button className={buttonStyles.button} type="button" onClick={handleClick}>
 							{isLoading ? "Connecting..." : isError ? "Setup Payouts" : "Setup Payouts"}
 						</button>
 						<p className="mt-3">

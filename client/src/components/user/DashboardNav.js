@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthContext } from "context/Auth";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 import DashboardSeller from "./DashboardSeller";
+import buttonStyles from "assets/css/button-styles.module.css";
 
 function DashboardNav() {
 	const { state } = useAuthContext();
@@ -24,7 +25,9 @@ function DashboardNav() {
 								<h2>Bookings</h2>
 							</div>
 							<div className="col-md-4 mt-5 d-flex justify-content-center">
-								<button type="button">Browse hotels</button>
+								<button className={buttonStyles.button} type="button">
+									Browse hotels
+								</button>
 							</div>
 						</div>
 					</div>

@@ -6,6 +6,7 @@ import {
 	useStripeSettingsMutation
 } from "framework/basic-rest/auth/use-stripe";
 import { currencyFormatter } from "utils";
+import buttonStyles from "assets/css/button-styles.module.css";
 
 function ConnectNav() {
 	const { state } = useAuthContext();
@@ -43,7 +44,7 @@ function ConnectNav() {
 					</div>
 					<div>
 						<h5>Payout Settings</h5>
-						<button type="button" onClick={payoutSettings}>
+						<button className={buttonStyles.button} type="button" onClick={payoutSettings}>
 							{isLoading ? "Loading..." : <span>&#9881; Settings</span>}
 						</button>
 					</div>

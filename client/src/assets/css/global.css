@@ -431,3 +431,13 @@ Needed for proper display in IE 10-.
   overflow: hidden;
 }
 
+.img-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.img {
+  max-width: 100%;
+  height: auto;
+  flex-grow: 1;
+}

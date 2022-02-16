@@ -3,11 +3,19 @@ import { useForm } from "react-hook-form";
 import formStyles from "assets/css/form-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
 
-export function HotelForm({ handleImageChange }) {
-	const { handleSubmit, register } = useForm();
+export function HotelForm({ handleImageChange, setValues }) {
+	const { handleSubmit, register } = useForm({
+		defaultValues: {
+			title: "",
+			image: "",
+			content: "",
+			price: "",
+			bed: ""
+		}
+	});
 
 	const onSubmit = (data) => {
-		// api call
+		setValues(data);
 	};
 	return (
 		<Fragment>
