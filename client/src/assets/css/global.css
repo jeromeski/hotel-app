@@ -441,3 +441,9 @@ Needed for proper display in IE 10-.
   height: auto;
   flex-grow: 1;
 }
+
+.ant-picker-range {
+  width: 100% !important;
+  margin-top: 1rem !important;
+
+}

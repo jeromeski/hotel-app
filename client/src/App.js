@@ -16,6 +16,7 @@ import StripeCallback from "components/user/StripeCallback";
 import "@reach/menu-button/styles.css";
 import "@reach/tabs/styles.css";
 import "react-toastify/dist/ReactToastify.css";
+import "antd/dist/antd.css";
 
 function App() {
 	return (

@@ -9,13 +9,20 @@ const heightFull = {
 function NewHotel() {
 	const { state } = useAuthContext();
 	const { auth: user } = state;
-	const [values, setValues] = useState();
+	const [values, setValues] = useState({
+		title: "",
+		content: "",
+		location: "",
+		image: "",
+		price: "",
+		dates: "",
+		bed: ""
+	});
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
 
 	const handleImageChange = (e) => {
 		// console.log(e.target.files[0]);
 		setPreview(URL.createObjectURL(e.target.files[0]));
-		setValues({ ...values, image: e.target.files[0] });
 	};
 
 	return (
@@ -33,13 +40,17 @@ function NewHotel() {
 
 								<div className="row">
 									<div className="col-md-8">
-										<HotelForm handleImageChange={handleImageChange} setValues={setValues} />
+										<HotelForm
+											handleImageChange={handleImageChange}
+											setValues={setValues}
+											preview={preview}
+										/>
 									</div>
 									<div className="col-md-4">
 										<div className="img-wrapper">
 											<img className="img" src={preview} alt="preview_image" />
 										</div>
-										<pre>{JSON.stringify(values, null, 4)}</pre>
+										<code>{JSON.stringify(values, null, 4)}</code>
 									</div>
 								</div>
 							</div>
@@ -52,7 +63,3 @@ function NewHotel() {
 }
 
 export default NewHotel;
-
-/*
-{JSON.stringify(user, null, 4)}
-*/

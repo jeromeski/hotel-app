@@ -21,7 +21,7 @@ function StripeCallback() {
 		if (seller) {
 			history.push("/dashboard");
 		}
-	}, [auth.user.stripe_seller]);
+	}, [auth.user.stripe_seller, history]);
 
 	return (
 		<div className="d-flex justify-content-center p-5">

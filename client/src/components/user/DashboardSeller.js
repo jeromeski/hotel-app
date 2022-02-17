@@ -1,7 +1,6 @@
 import { useAuthContext } from "context/Auth";
 import { useStripeConnectMutation } from "framework/basic-rest/auth/use-stripe";
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
 import buttonStyles from "assets/css/button-styles.module.css";
 import LinkButton from "components/common/LinkButton";
 

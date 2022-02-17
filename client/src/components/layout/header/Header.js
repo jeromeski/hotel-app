@@ -1,9 +1,7 @@
 import React from "react";
-import { useAuthContext } from "context/Auth";
-
+import HeaderMenu from "./HeaderMenu";
 import Logo from "./Logo";
 import headerStyles from "assets/css/header-styles.module.css";
-import HeaderMenu from "./HeaderMenu";
 
 function Header() {
 	return (
@@ -22,24 +20,4 @@ function Header() {
 
 export default Header;
 
-/*
-{auth && (
-								<Menu>
-									<MenuButton>{auth.user.name}</MenuButton>
-									<MenuList>
-										<MenuItem
-											onSelect={() => {
-												history.push("/dashboard");
-											}}>
-											Dashboard
-										</MenuItem>
-										<MenuItem
-											onSelect={() => {
-												logout();
-											}}>
-											Logout
-										</MenuItem>
-									</MenuList>
-								</Menu>
-							)}
-*/
+
