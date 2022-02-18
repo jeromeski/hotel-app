@@ -15,7 +15,8 @@ function NewHotel() {
 		location: "",
 		image: "",
 		price: "",
-		dates: "",
+		from: "",
+		to: "",
 		bed: ""
 	});
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");

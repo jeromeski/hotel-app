@@ -1,69 +1,82 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "antd";
-import { useController, useForm } from "react-hook-form";
-import moment from "moment";
+import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { getAddress } from "utils";
 import addresses from "data/address.js";
 import formStyles from "assets/css/form-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
+import moment from 'moment';
 
-const { RangePicker } = DatePicker;
+// const { RangePicker } = DatePicker;
 
-function RangePickerAntd({ control, name, errors }) {
-	const [fromDate, setFromDate] = useState(null);
-	const [toDate, setToDate] = useState(null);
+// function RangePickerAntd({ control, name, errors }) {
+// 	const [fromDate, setFromDate] = useState(null);
+// 	const [toDate, setToDate] = useState(null);
 
-	const {
-		field: { onChange, ref }
-	} = useController({ control, name, rules: { required: true } });
+//   console.log(errors);
+// 	const {
+// 		field: { onChange, ref }
+// 	} = useController({ control, name });
 
-	const filterByDate = (dates) => {
-		setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-		setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-	};
+// 	const filterByDate = (dates) => {
+// 		setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
+// 		setToDate(moment(dates[1]).format("DD-MM-YYYY"));
+// 	};
 
-	const handlePicker = (dates) => {
-		filterByDate(dates);
-	};
+// 	const handlePicker = (dates) => {
+// 		filterByDate(dates);
+// 	};
 
-	useEffect(() => {
-		if (fromDate && toDate) {
-			onChange({ from: fromDate, to: toDate });
-		}
-	}, [fromDate, toDate]);
+// 	useEffect(() => {
+// 		if (fromDate && toDate) {
+// 			onChange({ from: fromDate, to: toDate });
+// 		}
+// 	}, [fromDate, toDate]);
 
-	return (
-		<Fragment>
-			<RangePicker
-				name={name}
-				format="DD-MM-YYYY"
-				onChange={(dates) => {
-					handlePicker(dates);
-				}}
-				inputRef={ref}
-			/>
-			<ErrorMessage errors={errors} name={name} />
-		</Fragment>
-	);
-}
+// 	return (
+// 		<Fragment>
+// 			<RangePicker
+// 				name={name}
+// 				format="DD-MM-YYYY"
+// 				onChange={(dates) => {
+// 					handlePicker(dates);
+// 				}}
+// 				inputRef={ref}
+// 			/>
+// 			<ErrorMessage errors={errors} name={name} />
+// 		</Fragment>
+// 	);
+// }
 
 export function HotelForm({ handleImageChange, setValues, preview }) {
 	const [address, setAddress] = useState("");
+
 	const {
 		handleSubmit,
 		register,
 		control,
-		formState: { errors }
+		formState: { errors },
+    reset
 	} = useForm();
 
 	useEffect(() => {
 		getAddress(setAddress, addresses);
 	}, []);
 
+  useEffect(() => {
+    reset()
+  },[reset])
+
 	const onSubmit = (data) => {
-		setValues(data);
+    const _data = {
+      ...data,
+        from: moment(data.from).format("DD-MM-YYYY"),
+        to: moment(data.from).format("DD-MM-YYYY")
+    }
+		setValues(_data);
 	};
+
 
 	return (
 		<Fragment>
@@ -131,21 +144,93 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 					<ErrorMessage errors={errors} name="bed" />
 				</label>
 
-				<div>
-					<RangePickerAntd
+				<label className={formStyles.label}>
+					<Controller
 						control={control}
-						name="dates"
-						style={{ width: "100% !important", marginTop: "1rem" }}
-						errors={errors}
+						name="from"
+						rules={{ required: "This field is required" }}
+						render={({ field, formState }) => {
+
+							const { ref,...rest } = field;
+							const { errors } = formState;
+
+							return (
+								<Fragment>
+									<DatePicker
+                    format="DD-MM-YYYY"
+										inputRef={ref}
+                    {...rest}
+                    disabledDate={(current) => current && current.valueOf() < moment().subtract(1, "days")}
+									/>
+									<ErrorMessage errors={errors} name="from" />
+								</Fragment>
+							);
+						}}
 					/>
-				</div>
+				</label>
+
+				<label className={formStyles.label}>
+					<Controller
+						control={control}
+						name="to"
+						rules={{ required: "This field is required" }}
+						render={({ field, formState }) => {
+							const { ref} = field;
+							const { errors } = formState;
+							return (
+								<Fragment>
+									<DatePicker
+										inputRef={ref}
+										{...field}
+										disabledDate={(current) =>
+											current && current.valueOf() < moment().subtract(1, "days")
+										}
+									/>
+									<ErrorMessage errors={errors} name="to" />
+								</Fragment>
+							);
+						}}
+					/>
+				</label>
 
 				<label className={formStyles.label}>
 					<button className={buttonStyles.button} type="submit">
 						Submit
 					</button>
+					<button
+						className={buttonStyles.button}
+						type="button"
+						onClick={() => {
+							reset(
+								{
+									title: "",
+									content: "",
+									location: "",
+									image: "",
+									price: "",
+									from: "",
+									to: "",
+									bed: ""
+								},
+								{
+									keepErrors: true,
+									keepDirty: true,
+									keepIsSubmitted: false,
+									keepTouched: false,
+									keepIsValid: false,
+									keepSubmitCount: false
+								}
+							);
+						}}>
+						Reset
+					</button>
 				</label>
+
 			</form>
 		</Fragment>
 	);
 }
+
+/*
+
+*/ 

@@ -442,7 +442,7 @@ Needed for proper display in IE 10-.
   flex-grow: 1;
 }
 
-.ant-picker-range {
+.ant-picker{
   width: 100% !important;
   margin-top: 1rem !important;
 
