@@ -2,11 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { getAddress } from "utils";
+import { getAddress, getLoremipsum } from "utils";
 import addresses from "data/address.js";
 import formStyles from "assets/css/form-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
-import moment from 'moment';
+import moment from "moment";
 
 // const { RangePicker } = DatePicker;
 
@@ -49,34 +49,39 @@ import moment from 'moment';
 // 	);
 // }
 
-export function HotelForm({ handleImageChange, setValues, preview }) {
+export default function HotelForm({ handleImageChange, preview, onSubmit, isLoading, isSuccess }) {
 	const [address, setAddress] = useState("");
+	const [lorem, setLorem] = useState("");
 
 	const {
 		handleSubmit,
 		register,
 		control,
 		formState: { errors },
-    reset
+		reset,
+		isError
 	} = useForm();
 
 	useEffect(() => {
-		getAddress(setAddress, addresses);
+		if (address === "") {
+			getAddress(setAddress, addresses);
+			getLoremipsum(setLorem, lorem);
+		}
 	}, []);
 
-  useEffect(() => {
-    reset()
-  },[reset])
+	useEffect(() => {
+		if (isSuccess) {
+			getAddress(setAddress, addresses);
+			getLoremipsum(setLorem, lorem);
+		}
+	}, [isSuccess]);
 
-	const onSubmit = (data) => {
-    const _data = {
-      ...data,
-        from: moment(data.from).format("DD-MM-YYYY"),
-        to: moment(data.from).format("DD-MM-YYYY")
-    }
-		setValues(_data);
-	};
-
+	useEffect(() => {
+		if (isSuccess) {
+			reset();
+		}
+		reset();
+	}, [reset, isSuccess]);
 
 	return (
 		<Fragment>
@@ -106,6 +111,7 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 				</label>
 				<label className={formStyles.label}>
 					<textarea
+						value={lorem}
 						placeholder="Content"
 						{...register("content", { required: "This field is required" })}
 						className={formStyles.textArea}
@@ -150,17 +156,18 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 						name="from"
 						rules={{ required: "This field is required" }}
 						render={({ field, formState }) => {
-
-							const { ref,...rest } = field;
+							const { ref, ...rest } = field;
 							const { errors } = formState;
 
 							return (
 								<Fragment>
 									<DatePicker
-                    format="DD-MM-YYYY"
+										format="DD-MM-YYYY"
 										inputRef={ref}
-                    {...rest}
-                    disabledDate={(current) => current && current.valueOf() < moment().subtract(1, "days")}
+										{...rest}
+										disabledDate={(current) =>
+											current && current.valueOf() < moment().subtract(1, "days")
+										}
 									/>
 									<ErrorMessage errors={errors} name="from" />
 								</Fragment>
@@ -175,7 +182,7 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 						name="to"
 						rules={{ required: "This field is required" }}
 						render={({ field, formState }) => {
-							const { ref} = field;
+							const { ref } = field;
 							const { errors } = formState;
 							return (
 								<Fragment>
@@ -194,8 +201,8 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 				</label>
 
 				<label className={formStyles.label}>
-					<button className={buttonStyles.button} type="submit">
-						Submit
+					<button className={buttonStyles.button} type="submit" disabled={isLoading ? 1 : 0}>
+						{isLoading ? "Loading..." : "Submit"}
 					</button>
 					<button
 						className={buttonStyles.button}
@@ -225,7 +232,6 @@ export function HotelForm({ handleImageChange, setValues, preview }) {
 						Reset
 					</button>
 				</label>
-
 			</form>
 		</Fragment>
 	);

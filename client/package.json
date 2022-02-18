@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@hookform/error-message": "^2.0.0",
+		"@reach/combobox": "^0.16.5",
 		"@reach/menu-button": "^0.16.2",
 		"@reach/tabs": "^0.16.4",
 		"@reach/visually-hidden": "^0.16.0",
@@ -18,6 +19,7 @@
 		"js-cookie": "^3.0.1",
 		"localforage": "^1.10.0",
 		"lodash": "^4.17.21",
+		"lorem-ipsum": "^2.0.4",
 		"moment": "^2.29.1",
 		"react": "^16.4.0",
 		"react-dom": "^16.4.0",

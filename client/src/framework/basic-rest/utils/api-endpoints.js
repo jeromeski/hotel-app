@@ -6,5 +6,6 @@ export const API_ENDPOINTS = {
 	STRIPE_CONNECT: "/connect-account",
 	STRIPE_STATUS: "/account-status",
 	STRIPE_BALANCE: "/account-balance",
-	STRIPE_SETTINGS: "/payout-settings"
+	STRIPE_SETTINGS: "/payout-settings",
+	CREATE_HOTEL: "/create-hotel"
 };

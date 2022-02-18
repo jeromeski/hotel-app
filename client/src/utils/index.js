@@ -1,4 +1,5 @@
 import shuffle from "lodash/shuffle";
+import { LoremIpsum } from "lorem-ipsum";
 
 export const updateUserInLocalStorage = (user) => {
 	if (window.localStorage.getItem("auth")) {
@@ -28,4 +29,19 @@ export function getAddress(setAddress, addresses) {
 	const [zipCode, city, streetAddress, ...rest] = newArr;
 	newArr = [streetAddress, city, ...rest, zipCode];
 	setAddress(newArr.join(", "));
+}
+
+export function getLoremipsum(setLorem) {
+	const lorem = new LoremIpsum({
+		sentencesPerParagraph: {
+			max: 14,
+			min: 10
+		},
+		wordsPerSentence: {
+			max: 16,
+			min: 8
+		}
+	});
+
+	setLorem(lorem.generateParagraphs(1));
 }

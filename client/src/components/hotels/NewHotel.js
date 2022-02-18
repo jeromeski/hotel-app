@@ -1,30 +1,59 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useAuthContext } from "context/Auth";
-import { HotelForm } from "components/form/hotel/HotelForm";
+import HotelForm from "components/form/hotel/HotelForm";
+import { useCreateHotelMutation } from "framework/basic-rest/hotel/use-hotel";
 
 const heightFull = {
 	height: "100vh"
 };
 
+const initialValues = null;
+
 function NewHotel() {
 	const { state } = useAuthContext();
 	const { auth: user } = state;
-	const [values, setValues] = useState({
-		title: "",
-		content: "",
-		location: "",
-		image: "",
-		price: "",
-		from: "",
-		to: "",
-		bed: ""
-	});
+	const [values, setValues] = useState(initialValues);
+	const [isHotel, setIsHotel] = useState(false);
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
 
+	const { mutate: createHotel, isLoading, isSuccess, isError } = useCreateHotelMutation();
+
+	const onSubmit = (data) => {
+		setValues(data);
+	};
+
+	useEffect(() => {
+		if (values) {
+			const { title, content, image, price, location, from, to, bed } = values;
+			let hotelData = new FormData();
+			hotelData.append("title", title);
+			hotelData.append("content", content);
+			hotelData.append("location", location);
+			hotelData.append("price", price);
+			image && hotelData.append("image", image);
+			hotelData.append("from", from);
+			hotelData.append("to", to);
+			hotelData.append("bed", bed);
+			console.log("Hotel data ==>", [...hotelData]);
+			setIsHotel(true);
+			if (isHotel) {
+				createHotel(hotelData);
+			}
+		}
+	}, [values]);
+
+	useEffect(() => {
+		if (isSuccess) {
+			setValues(initialValues);
+			setPreview("https://via.placeholder.com/100x100.png?text=PREVIEW");
+		}
+	}, [isSuccess]);
+
 	const handleImageChange = (e) => {
-		// console.log(e.target.files[0]);
 		setPreview(URL.createObjectURL(e.target.files[0]));
 	};
+
+	console.log("Values state ==>", values);
 
 	return (
 		user && (
@@ -45,13 +74,16 @@ function NewHotel() {
 											handleImageChange={handleImageChange}
 											setValues={setValues}
 											preview={preview}
+											onSubmit={onSubmit}
+											isLoading={isLoading}
+											isSuccess={isSuccess}
+											isError={isError}
 										/>
 									</div>
 									<div className="col-md-4">
 										<div className="img-wrapper">
 											<img className="img" src={preview} alt="preview_image" />
 										</div>
-										<code>{JSON.stringify(values, null, 4)}</code>
 									</div>
 								</div>
 							</div>
