@@ -7,5 +7,6 @@ export const API_ENDPOINTS = {
 	STRIPE_STATUS: "/account-status",
 	STRIPE_BALANCE: "/account-balance",
 	STRIPE_SETTINGS: "/payout-settings",
-	CREATE_HOTEL: "/create-hotel"
+	CREATE_HOTEL: "/create-hotel",
+	HOTELS: "/hotels"
 };

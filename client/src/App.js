@@ -17,6 +17,7 @@ import "@reach/menu-button/styles.css";
 import "@reach/tabs/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import "antd/dist/antd.css";
+import HotelDetails from "pages/booking/HotelDetails";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
+						<Route exact path="/hotel/:slug" component={HotelDetails} />
 						<PrivateRoute exact path="/dashboard" component={Dashboard} />
 						<PrivateRoute exact path="/hotels/new" component={NewHotel} />
 						<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />
