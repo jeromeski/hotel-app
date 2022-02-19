@@ -33,3 +33,15 @@ export function useGetHotelsMutation() {
 		}
 	});
 }
+
+async function getHotelImage(hotelId) {
+	return await _http.get(API_ENDPOINTS.HOTEL_IMAGE(hotelId));
+}
+
+export function useGetHotelImage() {
+	return useMutation(() => getHotelImage(), {
+		onSuccess: () => {},
+		onError: () => {}
+	});
+}
+

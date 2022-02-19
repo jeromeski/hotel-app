@@ -448,6 +448,10 @@ Needed for proper display in IE 10-.
 
 }
 
+.hotel-card {
+  width: 500px !important;
+}
+
 .hotel-card > div + div > div {
   font-size: 1rem !important;
 }
