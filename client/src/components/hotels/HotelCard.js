@@ -8,15 +8,25 @@ import { currencyFormatter, diffDays } from "utils";
 
 const HotelCard = ({ hotel }) => {
 	const history = useHistory();
+	console.log(hotel);
 	return hotel ? (
 		<Card>
 			<CardHeader>
 				<div className={cardStyles.thumbnail}>
 					<Link to={`/hotel/${hotel._id}`}>
-						<img
-							src="https://via.placeholder.com/430x300"
-							alt={slugify(hotel.title.toLowerCase())}
-						/>
+						{hotel.image && hotel.image.contentType ? (
+							<img
+								src={`${process.env.REACT_APP_BACKEND_URL}/hotel/image/${hotel._id}`}
+								alt={`${slugify(hotel.title)}`}
+								className="card-image img img-fluid"
+							/>
+						) : (
+							<img
+								src="https://via.placeholder.com/900x500.png?text=MERN+Booking"
+								alt={`${slugify(hotel.title)}`}
+								className="card-image img img-fluid"
+							/>
+						)}
 					</Link>
 				</div>
 				<span className={cardStyles.price}>
@@ -70,6 +80,5 @@ const HotelCard = ({ hotel }) => {
 		<Fragment></Fragment>
 	);
 };
-  
 
 export default HotelCard;

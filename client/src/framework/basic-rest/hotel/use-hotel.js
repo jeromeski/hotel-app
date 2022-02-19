@@ -34,25 +34,4 @@ export function useGetHotelsMutation() {
 	});
 }
 
-async function getHotelImage(hotelId) {
-	return await _http.get(API_ENDPOINTS.HOTEL_IMAGE(hotelId));
-}
-
-export function useGetHotelImage() {
-	return useMutation(() => getHotelImage(), {
-		onSuccess: () => {},
-		onError: () => {}
-	});
-}
-
-export const initializer = () => {
-	let userState;
-	if (window.localStorage.getItem("auth")) {
-		userState = JSON.parse(window.localStorage.getItem("auth"));
-		return { auth: userState };
-	}
-	userState = { auth: null };
-
-	return userState;
-};
 

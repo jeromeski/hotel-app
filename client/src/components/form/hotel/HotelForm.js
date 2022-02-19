@@ -1,202 +1,118 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { DatePicker } from "antd";
-import { useForm, Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 import { getAddress, getLoremipsum } from "utils";
 import addresses from "data/address.js";
 import formStyles from "assets/css/form-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
 import moment from "moment";
 
-// const { RangePicker } = DatePicker;
-
-// function RangePickerAntd({ control, name, errors }) {
-// 	const [fromDate, setFromDate] = useState(null);
-// 	const [toDate, setToDate] = useState(null);
-
-//   console.log(errors);
-// 	const {
-// 		field: { onChange, ref }
-// 	} = useController({ control, name });
-
-// 	const filterByDate = (dates) => {
-// 		setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-// 		setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-// 	};
-
-// 	const handlePicker = (dates) => {
-// 		filterByDate(dates);
-// 	};
-
-// 	useEffect(() => {
-// 		if (fromDate && toDate) {
-// 			onChange({ from: fromDate, to: toDate });
-// 		}
-// 	}, [fromDate, toDate]);
-
-// 	return (
-// 		<Fragment>
-// 			<RangePicker
-// 				name={name}
-// 				format="DD-MM-YYYY"
-// 				onChange={(dates) => {
-// 					handlePicker(dates);
-// 				}}
-// 				inputRef={ref}
-// 			/>
-// 			<ErrorMessage errors={errors} name={name} />
-// 		</Fragment>
-// 	);
-// }
-
-export default function HotelForm({ handleImageChange, preview, onSubmit, isLoading, isSuccess }) {
+export default function HotelForm({
+	handleImageChange,
+	handleChange,
+	onSubmit,
+	isLoading,
+	isSuccess,
+	setValues,
+	values,
+	initialState
+}) {
 	const [address, setAddress] = useState("");
 	const [lorem, setLorem] = useState("");
 
-	const {
-		handleSubmit,
-		register,
-		control,
-		formState: { errors },
-		reset,
-		isError
-	} = useForm();
-
 	useEffect(() => {
-		if (address === "") {
-			getAddress(setAddress, addresses);
-			getLoremipsum(setLorem, lorem);
-		}
+		getLoremipsum(setLorem, lorem);
+		getAddress(setAddress, addresses);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (isSuccess) {
-			getAddress(setAddress, addresses);
-			getLoremipsum(setLorem, lorem);
+			setValues(initialState);
+			const timer = setTimeout(() => {
+				window.location.reload();
+				clearTimeout(timer);
+			}, 1000);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
-	useEffect(() => {
-		if (isSuccess) {
-			reset();
-		}
-		reset();
-	}, [reset, isSuccess]);
+	const handleReset = () => {
+		setValues(initialState);
+		window.location.reload();
+	};
 
 	return (
 		<Fragment>
-			<form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
+			<form onSubmit={onSubmit} className={formStyles.form}>
 				<label className={formStyles.label}>
-					<input
-						type="file"
-						accept="image/*"
-						{...register("image", {
-							onChange: (e) => {
-								handleImageChange(e);
-								return preview;
-							},
-							required: "This field is required"
-						})}
-					/>
-					<ErrorMessage errors={errors} name="image" />
+					<input type="file" accept="image/*" onChange={handleImageChange} name="image" />
 				</label>
 				<label className={formStyles.label}>
 					<input
+						name="title"
 						type="text"
 						placeholder="Title"
-						{...register("title", { required: "This field is required" })}
 						className={formStyles.input}
+						onChange={handleChange}
 					/>
-					<ErrorMessage errors={errors} name="title" />
 				</label>
 				<label className={formStyles.label}>
 					<textarea
-						value={lorem}
+						name="content"
+						// value={lorem ? lorem : ""}
+						// readOnly={true}
+						defaultValue={lorem ? lorem : ""}
 						placeholder="Content"
-						{...register("content", { required: "This field is required" })}
 						className={formStyles.textArea}
+						onFocus={handleChange}
 					/>
-					<ErrorMessage errors={errors} name="content" />
 				</label>
 				<label className={formStyles.label}>
 					<input
+						name="price"
 						type="number"
 						placeholder="Price"
-						{...register("price", { required: "This field is required" })}
 						className={formStyles.input}
+						onChange={handleChange}
 					/>
-					<ErrorMessage errors={errors} name="price" />
 				</label>
 				<label className={formStyles.label}>
 					<input
-						value={address}
+						name="location"
+						defaultValue={address ? address : ""}
+						// readOnly={true}
 						placeholder={`${address.substring(0, 45)}...`}
+						// onChange={handleChange}
+						onFocus={handleChange}
 						type="text"
-						{...register("location", {
-							required: "This field is required"
-							// disabled: true
-						})}
 						className={formStyles.input}
 					/>
-					<ErrorMessage errors={errors} name="location" />
 				</label>
 				<label className={formStyles.label}>
 					<input
+						name="bed"
 						type="number"
 						placeholder="Number of Beds"
-						{...register("bed", { required: "This field is required" })}
 						className={formStyles.input}
-					/>
-					<ErrorMessage errors={errors} name="bed" />
-				</label>
-
-				<label className={formStyles.label}>
-					<Controller
-						control={control}
-						name="from"
-						rules={{ required: "This field is required" }}
-						render={({ field, formState }) => {
-							const { ref, ...rest } = field;
-							const { errors } = formState;
-
-							return (
-								<Fragment>
-									<DatePicker
-										format="DD-MM-YYYY"
-										inputRef={ref}
-										{...rest}
-										disabledDate={(current) =>
-											current && current.valueOf() < moment().subtract(1, "days")
-										}
-									/>
-									<ErrorMessage errors={errors} name="from" />
-								</Fragment>
-							);
-						}}
+						onChange={handleChange}
 					/>
 				</label>
 
 				<label className={formStyles.label}>
-					<Controller
-						control={control}
-						name="to"
-						rules={{ required: "This field is required" }}
-						render={({ field, formState }) => {
-							const { ref } = field;
-							const { errors } = formState;
-							return (
-								<Fragment>
-									<DatePicker
-										inputRef={ref}
-										{...field}
-										disabledDate={(current) =>
-											current && current.valueOf() < moment().subtract(1, "days")
-										}
-									/>
-									<ErrorMessage errors={errors} name="to" />
-								</Fragment>
-							);
-						}}
+					<DatePicker
+						placeholder="From date"
+						className="ant-picker"
+						onChange={(date, dateString) => setValues({ ...values, from: dateString })}
+						disabledDate={(current) => current && current.valueOf() < moment().subtract(1, "days")}
+					/>
+				</label>
+
+				<label className={formStyles.label}>
+					<DatePicker
+						placeholder="To date"
+						className="ant-picker"
+						onChange={(date, dateString) => setValues({ ...values, to: dateString })}
+						disabledDate={(current) => current && current.valueOf() < moment().subtract(1, "days")}
 					/>
 				</label>
 
@@ -204,31 +120,7 @@ export default function HotelForm({ handleImageChange, preview, onSubmit, isLoad
 					<button className={buttonStyles.button} type="submit" disabled={isLoading ? 1 : 0}>
 						{isLoading ? "Loading..." : "Submit"}
 					</button>
-					<button
-						className={buttonStyles.button}
-						type="button"
-						onClick={() => {
-							reset(
-								{
-									title: "",
-									content: "",
-									location: "",
-									image: "",
-									price: "",
-									from: "",
-									to: "",
-									bed: ""
-								},
-								{
-									keepErrors: true,
-									keepDirty: true,
-									keepIsSubmitted: false,
-									keepTouched: false,
-									keepIsValid: false,
-									keepSubmitCount: false
-								}
-							);
-						}}>
+					<button className={buttonStyles.button} type="button" onClick={handleReset}>
 						Reset
 					</button>
 				</label>

@@ -9,5 +9,5 @@ export const API_ENDPOINTS = {
 	STRIPE_SETTINGS: "/payout-settings",
 	CREATE_HOTEL: "/create-hotel",
 	HOTELS: "/hotels",
-	HOTEL_IMAGE: (hotelId) => `/hotel/image/${hotelId}`
+
 };

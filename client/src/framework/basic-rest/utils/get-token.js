@@ -6,3 +6,5 @@ export const getToken = () => {
 	}
 	return Cookies.get("auth_token");
 };
+
+

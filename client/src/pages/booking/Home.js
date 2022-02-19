@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
 import { useAuthContext } from "context/Auth";
 import { useGetHotelsMutation } from "framework/basic-rest/hotel/use-hotel";
-import slugify from "slugify";
 import HotelsResourceLoader from "components/hotels/HotelsResourceLoader";
-import HotelCard from "components/hotels/HotelCard";
+import HotelCard from 'components/hotels/HotelCard';
+
 
 const topSpacer = {
 	marginTop: "10rem"
@@ -14,17 +14,17 @@ const Home = () => {
 	const { state } = useAuthContext();
 	const { auth: user } = state;
 
-	const { mutate: getAllHotels, isLoading, data } = useGetHotelsMutation();
+	const { mutate: getAllHotels, isLoading, isSuccess, data } = useGetHotelsMutation();
 
 	useEffect(() => {
 		return getAllHotels();
 	}, []);
 
 	useEffect(() => {
-		if (data) {
-			setHotels(data.data);
+		if (isSuccess) {
+			setHotels(data);
 		}
-	}, [data]);
+	}, [isSuccess]);
 
 	console.log(hotels);
 
@@ -33,9 +33,7 @@ const Home = () => {
 			<div className="row">
 				<Fragment>
 					{isLoading && <h1>Loading</h1>}
-					{hotels && (
-						<HotelsResourceLoader hotels={hotels} resourceName="hotel" itemComponent={HotelCard} />
-					)}
+					{hotels && <HotelsResourceLoader resourceName="hotel" itemComponent={HotelCard} hotels={hotels.data} />}
 				</Fragment>
 			</div>
 		</div>
@@ -43,3 +41,9 @@ const Home = () => {
 };
 
 export default Home;
+
+/*
+{hotels && (
+						<HotelsResourceLoader hotels={hotels} resourceName="hotel" itemComponent={HotelCard} />
+					)}
+*/ 
