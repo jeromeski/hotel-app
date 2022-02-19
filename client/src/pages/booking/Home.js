@@ -31,12 +31,11 @@ const Home = () => {
 	return (
 		<div className="container" style={topSpacer}>
 			<div className="row">
-				<div className="col-md-12 d-flex justify-content-center">
-					<h1>Hotels</h1>
-				</div>
 				<Fragment>
 					{isLoading && <h1>Loading</h1>}
-					{hotels && <HotelsResourceLoader hotels={hotels} itemComponent={HotelCard} />}
+					{hotels && (
+						<HotelsResourceLoader hotels={hotels} resourceName="hotel" itemComponent={HotelCard} />
+					)}
 				</Fragment>
 			</div>
 		</div>

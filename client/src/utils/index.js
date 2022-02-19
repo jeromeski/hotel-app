@@ -45,3 +45,22 @@ export function getLoremipsum(setLorem) {
 
 	setLorem(lorem.generateParagraphs(1));
 }
+
+export const diffDays = (from, to) => {
+	const day = 24 * 60 * 60 * 1000;
+	const start = new Date(from);
+	const end = new Date(to);
+	const difference = Math.round(Math.abs((start - end) / day));
+	return difference;
+};
+
+export const initializer = () => {
+	let userState;
+	if (window.localStorage.getItem("auth")) {
+		userState = JSON.parse(window.localStorage.getItem("auth"));
+		return { auth: userState };
+	}
+	userState = { auth: null };
+
+	return userState;
+};

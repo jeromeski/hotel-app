@@ -30,7 +30,7 @@ function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/hotel/:slug" component={HotelDetails} />
+						<Route exact path="/hotel/:hotelId" component={HotelDetails} />
 						<PrivateRoute exact path="/dashboard" component={Dashboard} />
 						<PrivateRoute exact path="/hotels/new" component={NewHotel} />
 						<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />

@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer, useMemo } from "react";
-import { initializer } from "utils/initializer";
+import { initializer } from "utils/index";
 
 import authReducer from "./authReducer";
 
