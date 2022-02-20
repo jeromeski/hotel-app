@@ -6,7 +6,7 @@ import cardStyles from "assets/css/card-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
 import { currencyFormatter, diffDays } from "utils";
 
-const HotelCard = ({ hotel }) => {
+const HotelCard = ({ hotel, owner }) => {
 	const history = useHistory();
 	console.log(hotel);
 	return hotel ? (
@@ -34,18 +34,16 @@ const HotelCard = ({ hotel }) => {
 				</span>
 			</CardHeader>
 			<CardBody>
-				<h1 className={`${cardStyles.title} text-bold`}>{hotel.title}</h1>
+				<h1 className={`${cardStyles.title}`}>{hotel.title}</h1>
+				<p className="text-muted">{hotel.location}</p>
 				<p className="text-muted">
-					<b>{hotel.location}</b>
-				</p>
-				<p className="text-secondary">
 					{`${hotel.content.substring(0, 100)}... `}{" "}
 					<Link to={`/hotel/${hotel._id}`}>Show More</Link>
 				</p>
-				<p className="text-secondary">
+				<p className="text-muted">
 					<b>Beds :</b> {hotel.bed}
 				</p>
-				<p className="text-secondary">
+				<p className="text-muted">
 					<b>Availability :</b> {new Date(hotel.from).toLocaleDateString()} to{" "}
 					{new Date(hotel.to).toLocaleDateString()}
 				</p>
@@ -64,15 +62,19 @@ const HotelCard = ({ hotel }) => {
 						onClick={() => history.push(`/hotel/${hotel._id}`)}>
 						Show More
 					</button>
-					<button
-						type="button"
-						className={buttonStyles.button}
-						onClick={() => history.push(`/hotel/edit/${hotel._id}`)}>
-						Edit
-					</button>
-					<button type="button" className={buttonStyles.button} onClick={() => {}}>
-						Delete
-					</button>
+					{owner && (
+						<Fragment>
+							<button
+								type="button"
+								className={buttonStyles.button}
+								onClick={() => history.push(`/hotel/edit/${hotel._id}`)}>
+								Edit
+							</button>
+							<button type="button" className={buttonStyles.button} onClick={() => {}}>
+								Delete
+							</button>
+						</Fragment>
+					)}
 				</div>
 			</CardFooter>
 		</Card>

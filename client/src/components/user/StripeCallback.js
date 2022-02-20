@@ -17,11 +17,11 @@ function StripeCallback() {
 	}, [auth, accountStatus]);
 
 	useEffect(() => {
-		const seller = auth.user.stripe_seller;
-		if (seller) {
+		if (auth && auth.user && auth.user.stripe_seller) {
 			history.push("/dashboard");
 		}
-	}, [auth.user.stripe_seller, history]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [auth, auth.user, auth.user.stripe_seller]);
 
 	return (
 		<div className="d-flex justify-content-center p-5">

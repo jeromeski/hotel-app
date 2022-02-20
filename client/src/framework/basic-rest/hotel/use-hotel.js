@@ -34,4 +34,19 @@ export function useGetHotelsMutation() {
 	});
 }
 
+async function getSellerHotels() {
+	return await _httpHotel.get(API_ENDPOINTS.SELLER_HOTELS);
+}
+
+export function useGetSellerHotelsMutation() {
+	return useMutation(() => getSellerHotels(), {
+		onSuccess: () => {
+			//
+		},
+		onError: () => {
+			//
+		}
+	});
+}
+
 

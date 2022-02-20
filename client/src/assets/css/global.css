@@ -82,7 +82,7 @@ By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top ma
 */
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: .5rem;
+  /* margin-bottom: .5rem; */
 }
 /*
 Reset margins on paragraphs
@@ -458,11 +458,21 @@ Needed for proper display in IE 10-.
 }
 
 .card__body {
-  height: 290px;
+  max-height: 50%;
 }
 
 .card__footer {
-  height: 13%;
+  /* height: 13%; */
   /* justify-content: center !important; */
+  
+}
+
+[data-reach-tabs] [data-reach-tab-list] button {
+  display: flex;
+  align-items: center;
+}
+
+[data-reach-tabs] [data-reach-tab-list] button h5 {
+  margin-bottom: 0 !important;
   
 }

@@ -18,12 +18,14 @@ const Home = () => {
 
 	useEffect(() => {
 		return getAllHotels();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
 		if (isSuccess) {
 			setHotels(data);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
 	console.log(hotels);
@@ -33,7 +35,14 @@ const Home = () => {
 			<div className="row">
 				<Fragment>
 					{isLoading && <h1>Loading</h1>}
-					{hotels && <HotelsResourceLoader resourceName="hotel" itemComponent={HotelCard} hotels={hotels.data} />}
+					{hotels && (
+						<HotelsResourceLoader
+							resourceName="hotel"
+							itemComponent={HotelCard}
+							hotels={hotels.data}
+							owner={false}
+						/>
+					)}
 				</Fragment>
 			</div>
 		</div>

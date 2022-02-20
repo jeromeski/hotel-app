@@ -25,7 +25,7 @@ function App() {
 			<div className="page-wrapper">
 				<BrowserRouter>
 					<Header />
-					<ToastContainer position="top-center" />
+					<ToastContainer position="bottom-right" />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/login" component={Login} />
