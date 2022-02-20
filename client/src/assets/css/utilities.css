@@ -2791,3 +2791,7 @@ a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
+
+.full-page-height {
+  height: 100vh;
+}

@@ -27,33 +27,33 @@ const Register = () => {
 	return (
 		<Fragment>
 			<div className="container">
-				<div className="row">
-					<div className="col-md-6 offset-md-3 mt-5">
-						<h1 className="text-center">Register</h1>
-					</div>
-					<div className="col-md-6 offset-md-3">
-						<RegisterForm handleSubmit={handleSubmit} onSubmit={onSubmit}>
-							<div>
-								<TextInput id="name" type="text" label="Name" {...register("name")} />
-								<TextError errorKey={errors.name?.message} />
-							</div>
-							<div>
-								<TextInput id="email" type="email" label="Email" {...register("email")} />
-								<TextError errorKey={errors.email?.message} />
-							</div>
-							<div>
-								<TextInput
-									id="password"
-									type="password"
-									label="Password"
-									{...register("password")}
-								/>
-								<TextError errorKey={errors.password?.message} />
-							</div>
-							<button type="submit" className="mt-3">
-								{isLoading ? "Loading..." : "Submit"}
-							</button>
-						</RegisterForm>
+				<div className="row full-page-height">
+					<div className="col-md-6 offset-md-3 d-flex align-items-center">
+						<div className="container">
+							<h1 className="text-center">Register</h1>
+							<RegisterForm handleSubmit={handleSubmit} onSubmit={onSubmit}>
+								<div>
+									<TextInput id="name" type="text" label="Name" {...register("name")} />
+									<TextError errorKey={errors.name?.message} />
+								</div>
+								<div>
+									<TextInput id="email" type="email" label="Email" {...register("email")} />
+									<TextError errorKey={errors.email?.message} />
+								</div>
+								<div>
+									<TextInput
+										id="password"
+										type="password"
+										label="Password"
+										{...register("password")}
+									/>
+									<TextError errorKey={errors.password?.message} />
+								</div>
+								<button type="submit" className="mt-3">
+									{isLoading ? "Loading..." : "Submit"}
+								</button>
+							</RegisterForm>
+						</div>
 					</div>
 				</div>
 			</div>

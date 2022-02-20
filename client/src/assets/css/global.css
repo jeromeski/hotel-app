@@ -47,7 +47,7 @@ Body
 */
 body {
   margin: 0; /* 1 */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
@@ -459,4 +459,10 @@ Needed for proper display in IE 10-.
 
 .card__body {
   height: 290px;
+}
+
+.card__footer {
+  height: 13%;
+  /* justify-content: center !important; */
+  
 }

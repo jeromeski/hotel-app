@@ -2,8 +2,8 @@ import Hotel from "../models/hotel";
 import fs from "fs";
 
 export const create = async (req, res) => {
-	  console.log("req.fields", req.fields);
-		console.log("req.files", req.files);
+	//   console.log("req.fields", req.fields);
+	//   console.log("req.files", req.files);
 	try {
 		let fields = req.fields;
 		let files = req.files;

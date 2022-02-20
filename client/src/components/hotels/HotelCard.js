@@ -34,7 +34,7 @@ const HotelCard = ({ hotel }) => {
 				</span>
 			</CardHeader>
 			<CardBody>
-				<h1 className={cardStyles.title}>{hotel.title}</h1>
+				<h1 className={`${cardStyles.title} text-bold`}>{hotel.title}</h1>
 				<p className="text-muted">
 					<b>{hotel.location}</b>
 				</p>
