@@ -24,14 +24,7 @@ async function getAllHotels() {
 }
 
 export function useGetHotelsMutation() {
-	return useMutation(() => getAllHotels(), {
-		onSuccess: () => {
-			//
-		},
-		onError: () => {
-			//
-		}
-	});
+	return useMutation(() => getAllHotels(), {});
 }
 
 async function getSellerHotels() {
@@ -39,14 +32,15 @@ async function getSellerHotels() {
 }
 
 export function useGetSellerHotelsMutation() {
-	return useMutation(() => getSellerHotels(), {
-		onSuccess: () => {
-			//
-		},
-		onError: () => {
-			//
-		}
-	});
+	return useMutation(() => getSellerHotels(), {});
+}
+
+async function deleteHotel(id) {
+	return await _httpHotel.delete(API_ENDPOINTS.DELETE_HOTEL(id));
+}
+
+export function useDeleteHotelMutation() {
+	return useMutation((id) => deleteHotel(id), {});
 }
 
 

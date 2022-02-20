@@ -6,7 +6,7 @@ import cardStyles from "assets/css/card-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
 import { currencyFormatter, diffDays } from "utils";
 
-const HotelCard = ({ hotel, owner }) => {
+const HotelCard = ({ hotel, owner, handleDeleteHotel }) => {
 	const history = useHistory();
 	console.log(hotel);
 	return hotel ? (
@@ -36,7 +36,7 @@ const HotelCard = ({ hotel, owner }) => {
 			<CardBody>
 				<h1 className={`${cardStyles.title}`}>{hotel.title}</h1>
 				<p className="text-muted">{hotel.location}</p>
-				<p className="text-muted">
+				<p className={`text-muted ${cardStyles.content}`}>
 					{`${hotel.content.substring(0, 100)}... `}{" "}
 					<Link to={`/hotel/${hotel._id}`}>Show More</Link>
 				</p>
@@ -70,7 +70,10 @@ const HotelCard = ({ hotel, owner }) => {
 								onClick={() => history.push(`/hotel/edit/${hotel._id}`)}>
 								Edit
 							</button>
-							<button type="button" className={buttonStyles.button} onClick={() => {}}>
+							<button
+								type="button"
+								className={buttonStyles.button}
+								onClick={() => handleDeleteHotel(hotel._id)}>
 								Delete
 							</button>
 						</Fragment>

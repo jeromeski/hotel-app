@@ -26,3 +26,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+
+.content {
+  font-size: .95rem;
+}

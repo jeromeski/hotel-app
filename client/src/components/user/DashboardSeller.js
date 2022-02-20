@@ -5,7 +5,10 @@ import buttonStyles from "assets/css/button-styles.module.css";
 import LinkButton from "components/common/LinkButton";
 import HotelsResourceLoader from "components/hotels/HotelsResourceLoader";
 import HotelCard from "components/hotels/HotelCard";
-import { useGetSellerHotelsMutation } from "framework/basic-rest/hotel/use-hotel";
+import {
+	useDeleteHotelMutation,
+	useGetSellerHotelsMutation
+} from "framework/basic-rest/hotel/use-hotel";
 
 function DashboardSeller() {
 	const { state } = useAuthContext();
@@ -13,15 +16,17 @@ function DashboardSeller() {
 	const [hotels, setHotels] = useState(null);
 
 	const { mutate: connectAccount, isLoading, isError } = useStripeConnectMutation();
-	const {
-		mutate: getSellerHotels,
-		isLoading: _isLoading,
-		isSuccess: _isSuccess,
-		data
-	} = useGetSellerHotelsMutation();
+	const { mutate: getSellerHotels, isLoading: _isLoading, data } = useGetSellerHotelsMutation();
+
+	const { mutate: deleteHotel } = useDeleteHotelMutation();
 
 	const handleClick = () => {
 		connectAccount();
+	};
+
+	const handleDeleteHotel = (id) => {
+		deleteHotel(id);
+		getSellerHotels();
 	};
 
 	useEffect(() => {
@@ -48,6 +53,7 @@ function DashboardSeller() {
 									resourceName="hotel"
 									hotels={hotels}
 									owner={true}
+									handleDeleteHotel={handleDeleteHotel}
 								/>
 							)}
 						</div>
