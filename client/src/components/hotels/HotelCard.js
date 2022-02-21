@@ -8,7 +8,6 @@ import { currencyFormatter, diffDays } from "utils";
 
 const HotelCard = ({ hotel, owner, handleDeleteHotel }) => {
 	const history = useHistory();
-	console.log(hotel);
 	return hotel ? (
 		<Card>
 			<CardHeader>

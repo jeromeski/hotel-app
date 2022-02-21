@@ -43,4 +43,26 @@ export function useDeleteHotelMutation() {
 	return useMutation((id) => deleteHotel(id), {});
 }
 
+async function readHotel(id) {
+	return await _http.get(API_ENDPOINTS.READ_HOTEL(id));
+}
+
+export function useReadHotelMutation() {
+	return useMutation((id) => readHotel(id), {});
+}
+
+async function updateHotel({ input, id }) {
+	return await _httpHotel.put(API_ENDPOINTS.UPDATE_HOTEL(id), input);
+}
+
+export function useUpdateHotelMutation() {
+	return useMutation((data) => updateHotel(data), {
+		onSuccess: () => {
+			toast.success("Hotel Updated Successfully!");
+		},
+		onError: ({ res: { data } }) => {
+			toast.error(data.message);
+		}
+	});
+}
 

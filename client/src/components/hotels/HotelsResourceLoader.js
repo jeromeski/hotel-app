@@ -7,7 +7,6 @@ function HotelsResourceLoader({
 	itemComponent: Component,
 	handleDeleteHotel
 }) {
-	console.log("resource loader ==>", hotels);
 	return hotels ? (
 		hotels.map((hotel) => (
 			<div className={`${owner ? "col-md-6" : "col-md-4"}`} key={hotel._id}>

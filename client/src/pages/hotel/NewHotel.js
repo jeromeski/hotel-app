@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useAuthContext } from "context/Auth";
 import HotelForm from "components/form/hotel/HotelForm";
 import { useCreateHotelMutation } from "framework/basic-rest/hotel/use-hotel";
-import axios from "axios";
 
 const heightFull = {
 	height: "100vh"
@@ -21,12 +20,12 @@ const initialState = {
 function NewHotel() {
 	const { state } = useAuthContext();
 	const { auth } = state;
-	const { token, user } = auth;
+	const { user } = auth;
 	const [values, setValues] = useState(initialState);
 
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
 
-	const { mutate: createHotel, isLoading, isSuccess, isError } = useCreateHotelMutation();
+	const { mutate: createHotel, isLoading, isSuccess } = useCreateHotelMutation();
 	const { title, content, image, price, location, from, to, bed } = values;
 
 	const onSubmit = (e) => {
@@ -41,17 +40,7 @@ function NewHotel() {
 			hotelData.append("from", from);
 			hotelData.append("to", to);
 			hotelData.append("bed", bed);
-			console.log("Hotel data ==>", [...hotelData]);
-			// (async () => {
-			// 	await axios
-			// 		.post(`${process.env.REACT_APP_BACKEND_URL}/create-hotel`, hotelData, {
-			// 			headers: {
-			// 				Authorization: `Bearer ${token}`
-			// 			}
-			// 		})
-			// 		.then(({ data }) => console.log(data))
-			// 		.catch(({ data }) => console.log(data));
-			// })();
+
 			createHotel(hotelData);
 		} catch (error) {
 			console.log(error);
