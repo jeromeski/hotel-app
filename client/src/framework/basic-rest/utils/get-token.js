@@ -1,10 +1,8 @@
-import Cookies from "js-cookie";
-
 export const getToken = () => {
-	if (typeof window === undefined) {
+	if (window.localStorage.getItem("auth") === null) {
 		return null;
 	}
-	return Cookies.get("auth_token");
+
+	const token = Object.values(JSON.parse(window.localStorage.auth))[0];
+	return token;
 };
-
-

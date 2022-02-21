@@ -1,5 +1,5 @@
 import { useAuthContext } from "context/Auth";
-import { useStripeConnectMutation } from "framework/basic-rest/auth/use-stripe";
+import { useStripeConnectMutation } from "framework/basic-rest/stripe/use-stripe";
 import React, { Fragment, useEffect, useState } from "react";
 import buttonStyles from "assets/css/button-styles.module.css";
 import LinkButton from "components/common/LinkButton";

@@ -18,6 +18,8 @@ function EditForm({
 		window.location.reload();
 	};
 
+  console.log("edit form :", hotel);
+
 	return (
 		<Fragment>
 			{hotel && (
@@ -90,7 +92,7 @@ function EditForm({
 							disabledDate={(current) =>
 								current && current.valueOf() < moment().subtract(1, "days")
 							}
-							defaultValue={hotel.from}
+							// defaultValue={hotel.from}
 							defaultPickerValue={moment(hotel.from)}
 						/>
 					</label>
@@ -103,7 +105,7 @@ function EditForm({
 							disabledDate={(current) =>
 								current && current.valueOf() < moment().subtract(1, "days")
 							}
-							defaultValue={hotel.to}
+							// defaultValue={hotel.to}
 							defaultPickerValue={moment(hotel.to)}
 						/>
 					</label>

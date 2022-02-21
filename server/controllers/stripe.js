@@ -1,4 +1,5 @@
 import User from "../models/user";
+import Hotel from "../models/hotel";
 import Stripe from "stripe";
 import queryString from "query-string";
 
@@ -82,7 +83,7 @@ export const getAccountBalance = async (req, res) => {
 	}
 };
 
-export const payoutSettings = async (req, res) => {
+export const payoutSetting = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).exec();
 
@@ -93,5 +94,51 @@ export const payoutSettings = async (req, res) => {
 		res.json(loginLink);
 	} catch (err) {
 		console.log("STRIPE PAYOUT SETTING ERR ", err);
+	}
+};
+
+export const stripeSessionId = async (req, res) => {
+	console.log("you hit stripe session id", req.body.hotelId);
+	try {
+		// 1 get hotel id from req.body
+		const { hotelId } = req.body;
+		// 2 find the hotel based on hotel id from db
+		const item = await Hotel.findById(hotelId).populate("postedBy").exec();
+		if (!item) return res.send("Id not found");
+		// 3 20% charge as application fee
+		const fee = (item.price * 20) / 100;
+		// 4 create a session
+		const session = await stripe.checkout.sessions.create({
+			payment_method_types: ["card"],
+			// 5 purchasing item details, it will be shown to user on checkout
+			line_items: [
+				{
+					name: item.title,
+					amount: item.price * 100, // in cents
+					currency: "usd",
+					quantity: 1
+				}
+			],
+			// 6 create payment intent with application fee and destination charge 80%
+			payment_intent_data: {
+				application_fee_amount: fee * 100,
+				// this seller can see his balance in our frontend dashboard
+				transfer_data: {
+					destination: item.postedBy.stripe_account_id
+				}
+			},
+			// success and calcel urls
+			success_url: process.env.STRIPE_SUCCESS_URL,
+			cancel_url: process.env.STRIPE_CANCEL_URL
+		});
+
+		// 7 add this session object to user in the db
+		await User.findByIdAndUpdate(req.user._id, { stripeSession: session }).exec();
+		// 8 send session id as resposne to frontend
+		res.send({
+			sessionId: session.id
+		});
+	} catch (error) {
+		res.send(error);
 	}
 };

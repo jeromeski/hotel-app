@@ -9,12 +9,14 @@ import {
 	createConnectAccount,
 	getAccountStatus,
 	getAccountBalance,
-	payoutSettings
+	payoutSetting,
+	stripeSessionId
 } from "../controllers/stripe";
 
-router.post("/connect-account", requireSignin, createConnectAccount);
-router.post("/account-status", requireSignin, getAccountStatus);
-router.post("/account-balance", requireSignin, getAccountBalance);
-router.post("/payout-settings", requireSignin, payoutSettings);
+router.post("/create-connect-account", requireSignin, createConnectAccount);
+router.post("/get-account-status", requireSignin, getAccountStatus);
+router.post("/get-account-balance", requireSignin, getAccountBalance);
+router.post("/payout-setting", requireSignin, payoutSetting);
+router.post("/stripe-session-id", requireSignin, stripeSessionId);
 
 module.exports = router;

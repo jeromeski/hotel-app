@@ -3,10 +3,10 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { updateUserInLocalStorage } from "utils";
 import { API_ENDPOINTS } from "../utils/api-endpoints";
-import { _httpStripe } from "../utils/http";
+import { http_stripe } from "../utils/http";
 
 async function connectAccount() {
-	return await _httpStripe.post(API_ENDPOINTS.STRIPE_CONNECT);
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_CONNECT);
 }
 
 export function useStripeConnectMutation() {
@@ -22,7 +22,7 @@ export function useStripeConnectMutation() {
 }
 
 async function accountStatus() {
-	return await _httpStripe.post(API_ENDPOINTS.STRIPE_STATUS);
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_STATUS);
 }
 
 export function useStripeStatusMutation() {
@@ -41,7 +41,7 @@ export function useStripeStatusMutation() {
 }
 
 async function accountBalance() {
-	return await _httpStripe.post(API_ENDPOINTS.STRIPE_BALANCE);
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_BALANCE);
 }
 
 export function useStripeBalanceMutation() {
@@ -56,7 +56,7 @@ export function useStripeBalanceMutation() {
 }
 
 async function payoutSettings() {
-	return await _httpStripe.post(API_ENDPOINTS.STRIPE_SETTINGS);
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_SETTINGS);
 }
 
 export function useStripeSettingsMutation() {
@@ -65,7 +65,22 @@ export function useStripeSettingsMutation() {
 			window.location.href = data.url;
 		},
 		onError: ({ response: { data } }) => {
-			toast.error(data);
+			console.log(data);
+		}
+	});
+}
+
+async function getSessionId(hotelId) {
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_SESSION, { hotelId });
+}
+
+export function useStripeSessionMutation() {
+	return useMutation((id) => getSessionId(id), {
+		onSuccess: ({ data }) => {
+			console.log(data);
+		},
+		onError: ({ response: { error } }) => {
+			console.log(error);
 		}
 	});
 }

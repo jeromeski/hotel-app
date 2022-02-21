@@ -1,10 +1,10 @@
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { API_ENDPOINTS } from "../utils/api-endpoints";
-import _http, { _httpHotel } from "../utils/http";
+import http_auth, { http_hotel } from "../utils/http";
 
 async function createHotel(input) {
-	return await _httpHotel.post(API_ENDPOINTS.CREATE_HOTEL, input);
+	return await http_hotel.post(API_ENDPOINTS.CREATE_HOTEL, input);
 }
 
 export function useCreateHotelMutation() {
@@ -20,7 +20,7 @@ export function useCreateHotelMutation() {
 }
 
 async function getAllHotels() {
-	return await _http.get(API_ENDPOINTS.HOTELS);
+	return await http_auth.get(API_ENDPOINTS.HOTELS);
 }
 
 export function useGetHotelsMutation() {
@@ -28,7 +28,7 @@ export function useGetHotelsMutation() {
 }
 
 async function getSellerHotels() {
-	return await _httpHotel.get(API_ENDPOINTS.SELLER_HOTELS);
+	return await http_hotel.get(API_ENDPOINTS.SELLER_HOTELS);
 }
 
 export function useGetSellerHotelsMutation() {
@@ -36,7 +36,7 @@ export function useGetSellerHotelsMutation() {
 }
 
 async function deleteHotel(id) {
-	return await _httpHotel.delete(API_ENDPOINTS.DELETE_HOTEL(id));
+	return await http_hotel.delete(API_ENDPOINTS.DELETE_HOTEL(id));
 }
 
 export function useDeleteHotelMutation() {
@@ -44,7 +44,7 @@ export function useDeleteHotelMutation() {
 }
 
 async function readHotel(id) {
-	return await _http.get(API_ENDPOINTS.READ_HOTEL(id));
+	return await http_auth.get(API_ENDPOINTS.READ_HOTEL(id));
 }
 
 export function useReadHotelMutation() {
@@ -52,7 +52,7 @@ export function useReadHotelMutation() {
 }
 
 async function updateHotel({ input, id }) {
-	return await _httpHotel.put(API_ENDPOINTS.UPDATE_HOTEL(id), input);
+	return await http_hotel.put(API_ENDPOINTS.UPDATE_HOTEL(id), input);
 }
 
 export function useUpdateHotelMutation() {

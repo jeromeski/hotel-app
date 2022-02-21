@@ -4,7 +4,7 @@ import moment from "moment";
 import {
 	useStripeBalanceMutation,
 	useStripeSettingsMutation
-} from "framework/basic-rest/auth/use-stripe";
+} from "framework/basic-rest/stripe/use-stripe";
 import { currencyFormatter } from "utils";
 import buttonStyles from "assets/css/button-styles.module.css";
 

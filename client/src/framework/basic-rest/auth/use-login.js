@@ -1,12 +1,11 @@
 import { useAuthContext } from "context/Auth";
 import { useMutation } from "react-query";
 import { API_ENDPOINTS } from "../utils/api-endpoints";
-import _http from "../utils/http";
+import http_auth from "../utils/http";
 import { toast } from "react-toastify";
 
-
 async function signIn(input) {
-	return await _http.post(API_ENDPOINTS.LOGIN, input);
+	return await http_auth.post(API_ENDPOINTS.LOGIN, input);
 }
 
 export function useLoginMutation() {
@@ -23,3 +22,6 @@ export function useLoginMutation() {
 		}
 	});
 }
+
+
+

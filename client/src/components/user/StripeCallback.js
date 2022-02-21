@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "context/Auth";
-import { useStripeStatusMutation } from "framework/basic-rest/auth/use-stripe";
+import { useStripeStatusMutation } from "framework/basic-rest/stripe/use-stripe";
 
 function StripeCallback() {
 	const { state } = useAuthContext();

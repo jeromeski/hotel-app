@@ -1,7 +1,5 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-
 import Home from "pages/Home";
 import Login from "pages/auth/Login";
 import Register from "pages/auth/Register";
@@ -13,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import PrivateRoute from "components/PrivateRoute";
 import Dashboard from "components/user/Dashboard";
 import NewHotel from "pages/hotel/NewHotel";
-import EditHotel from "components/hotels/EditHotel";
+import EditHotel from "pages/hotel/EditHotel";
 import ViewHotel from "pages/hotel/ViewHotel";
 import StripeCallback from "components/user/StripeCallback";
 import "@reach/menu-button/styles.css";

@@ -1,7 +1,8 @@
 import axios from "axios";
+import { getToken } from "./get-token";
 // import { getToken } from "./get-token";
 
-const _http = axios.create({
+const http_auth = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
 	timeout: 30000,
 	headers: {
@@ -10,7 +11,7 @@ const _http = axios.create({
 	}
 });
 
-const _httpStripe = axios.create({
+const http_stripe = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
 	timeout: 30000,
 	headers: {
@@ -19,7 +20,7 @@ const _httpStripe = axios.create({
 	}
 });
 
-const _httpHotel = axios.create({
+const http_hotel = axios.create({
 	baseURL: process.env.REACT_APP_BACKEND_URL,
 	timeout: 30000,
 	headers: {
@@ -27,11 +28,28 @@ const _httpHotel = axios.create({
 		"Content-Type": "application/json"
 	}
 });
+
+// getToken()
+// Change request data/error here
+
+http_auth.interceptors.request.use(
+	async (config) => {
+		const token = await getToken();
+		config.headers = {
+			...config.headers,
+			Authorization: `Bearer ${token ? token : ""}`
+		};
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error);
+	}
+);
 
 // Change request data/error here
-_httpStripe.interceptors.request.use(
-	(config) => {
-		const token = Object.values(JSON.parse(window.localStorage.auth))[0];
+http_stripe.interceptors.request.use(
+	async (config) => {
+		const token = await getToken();
 		config.headers = {
 			...config.headers,
 			Authorization: `Bearer ${token ? token : ""}`
@@ -43,9 +61,9 @@ _httpStripe.interceptors.request.use(
 	}
 );
 
-_httpHotel.interceptors.request.use(
-	(config) => {
-		const token = Object.values(JSON.parse(window.localStorage.auth))[0];
+http_hotel.interceptors.request.use(
+	async (config) => {
+		const token = await getToken();
 		config.headers = {
 			...config.headers,
 			Authorization: `Bearer ${token ? token : ""}`
@@ -57,6 +75,7 @@ _httpHotel.interceptors.request.use(
 	}
 );
 
-export { _httpStripe };
-export { _httpHotel };
-export default _http;
+export { http_stripe };
+export { http_hotel };
+export default http_auth;
+

@@ -1,11 +1,11 @@
 import { useAuthContext } from "context/Auth";
 import { useMutation } from "react-query";
 import { API_ENDPOINTS } from "../utils/api-endpoints";
-import _http from "../utils/http";
+import http_auth from "../utils/http";
 import { toast } from "react-toastify";
 
 async function signUp(input) {
-	return await _http.post(API_ENDPOINTS.REGISTER, input);
+	return await http_auth.post(API_ENDPOINTS.REGISTER, input);
 }
 
 export function useSignupMutation() {

@@ -20,7 +20,12 @@ function EditHotel({ match }) {
 	const [values, setValues] = useState(initialState);
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
 
-	const { mutate: readHotel, data, isLoading } = useReadHotelMutation();
+	const {
+		mutate: readHotel,
+		data,
+		isLoading: isLoading_read,
+		isSuccess: isSuccess_read
+	} = useReadHotelMutation();
 	const {
 		mutate: updateHotel,
 		isLoading: isLoading_edit,
@@ -31,7 +36,7 @@ function EditHotel({ match }) {
 	const { title, content, image, price, from, to, bed, location } = values;
 
 	useEffect(() => {
-		return readHotel(match.params.hotelId);
+		readHotel(match.params.hotelId);
 	}, []);
 
 	useEffect(() => {
@@ -43,14 +48,11 @@ function EditHotel({ match }) {
 		}
 	}, [data]);
 
-	const handleImageChange = (e) => {
-		setPreview(URL.createObjectURL(e.target.files[0]));
-		setValues({ ...values, image: e.target.files[0] });
-	};
-
-	const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-	};
+	useEffect(() => {
+		if (isSuccess_edit) {
+			readHotel(match.params.hotelId);
+		}
+	}, [isSuccess_edit]);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -71,11 +73,14 @@ function EditHotel({ match }) {
 		}
 	};
 
-	useEffect(() => {
-		if (isSuccess_edit) {
-			readHotel(match.params.hotelId);
-		}
-	}, [isSuccess_edit]);
+	const handleImageChange = (e) => {
+		setPreview(URL.createObjectURL(e.target.files[0]));
+		setValues({ ...values, image: e.target.files[0] });
+	};
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
 
 	return (
 		<Fragment>
@@ -90,8 +95,9 @@ function EditHotel({ match }) {
 							</div>
 							<div className="row">
 								<div className="col-md-8">
-									{isLoading && <h1>Loading...</h1>}
-									{values && (
+									{isLoading_read ? (
+										<h1>Loading...</h1>
+									) : data?.data ? (
 										<EditForm
 											handleImageChange={handleImageChange}
 											handleChange={handleChange}
@@ -102,6 +108,8 @@ function EditHotel({ match }) {
 											values={values}
 											initialState={initialState}
 										/>
+									) : (
+										<Fragment></Fragment>
 									)}
 								</div>
 								<div className="col-md-4">
