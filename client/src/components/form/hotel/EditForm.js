@@ -3,6 +3,7 @@ import formStyles from "assets/css/form-styles.module.css";
 import buttonStyles from "assets/css/button-styles.module.css";
 import { DatePicker } from "antd";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 function EditForm({
 	initialState,
@@ -13,12 +14,14 @@ function EditForm({
 	isLoading,
 	onSubmit
 }) {
+	const history = useHistory();
+
 	const handleReset = () => {
 		setValues(initialState);
 		window.location.reload();
 	};
 
-  console.log("edit form :", hotel);
+	console.log("edit form :", hotel);
 
 	return (
 		<Fragment>
@@ -110,14 +113,22 @@ function EditForm({
 						/>
 					</label>
 
-					<label className={formStyles.label}>
-						<button className={buttonStyles.button} type="submit" disabled={isLoading ? 1 : 0}>
-							{isLoading ? "Loading..." : "Submit"}
+					<div className="mt-3 d-flex justify-content-between">
+						<div>
+							<button className={buttonStyles.button} type="submit" disabled={isLoading ? 1 : 0}>
+								{isLoading ? "Loading..." : "Submit"}
+							</button>
+							<button className={buttonStyles.button} type="button" onClick={handleReset}>
+								Reset
+							</button>
+						</div>
+						<button
+							className={buttonStyles.button}
+							type="button"
+							onClick={() => history.push("/dashboard")}>
+							Cancel
 						</button>
-						<button className={buttonStyles.button} type="button" onClick={handleReset}>
-							Reset
-						</button>
-					</label>
+					</div>
 				</form>
 			)}
 		</Fragment>

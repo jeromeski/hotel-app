@@ -13,7 +13,9 @@ import Dashboard from "components/user/Dashboard";
 import NewHotel from "pages/hotel/NewHotel";
 import EditHotel from "pages/hotel/EditHotel";
 import ViewHotel from "pages/hotel/ViewHotel";
-import StripeCallback from "components/user/StripeCallback";
+import StripeCallback from "components/stripe/StripeCallback";
+import StripeSuccess from "components/stripe/StripeSuccess";
+import StripeCancel from "components/stripe/StripeCancel";
 import "@reach/menu-button/styles.css";
 import "@reach/tabs/styles.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +37,8 @@ function App() {
 						<PrivateRoute exact path="/hotels/new" component={NewHotel} />
 						<PrivateRoute exact path="/stripe/callback" component={StripeCallback} />
 						<PrivateRoute exact path="/hotel/edit/:hotelId" component={EditHotel} />
+						<PrivateRoute exact path="/stripe/success/:hotelId" component={StripeSuccess} />
+						<PrivateRoute exact path="/stripe/cancel" component={StripeCancel} />
 					</Switch>
 				</BrowserRouter>
 			</div>

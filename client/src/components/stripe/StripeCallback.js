@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuthContext } from "context/Auth";
 import { useStripeStatusMutation } from "framework/basic-rest/stripe/use-stripe";
+import LoadingOverlay from "components/common/LoadingOverlay";
 
 function StripeCallback() {
 	const { state } = useAuthContext();
 	const { auth } = state;
 
-	const { mutate: accountStatus } = useStripeStatusMutation();
+	const { mutate: accountStatus, isLoading, isSuccess } = useStripeStatusMutation();
 	const history = useHistory();
 
 	useEffect(() => {
@@ -23,10 +24,10 @@ function StripeCallback() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth, auth.user, auth.user.stripe_seller]);
 
-	return (
-		<div className="d-flex justify-content-center p-5">
-			<h1>Loading...</h1>
-		</div>
+	return isLoading && !isSuccess ? (
+		<LoadingOverlay isActive={true} spinner text="Connecting with Stripe..." />
+	) : (
+		<Fragment></Fragment>
 	);
 }
 

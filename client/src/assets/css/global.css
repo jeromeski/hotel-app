@@ -476,3 +476,8 @@ Needed for proper display in IE 10-.
   margin-bottom: 0 !important;
   
 }
+
+._loading_overlay_wrapper:active {
+  height: inherit;
+  overflow: hidden;
+}

@@ -2,9 +2,11 @@ import { useAuthContext } from "context/Auth";
 import { useReadHotelMutation } from "framework/basic-rest/hotel/use-hotel";
 import { useStripeSessionMutation } from "framework/basic-rest/stripe/use-stripe";
 import moment from "moment";
+import { loadStripe } from "@stripe/stripe-js";
 import React, { Fragment, useEffect, useState } from "react";
 import { diffDays } from "utils";
 import buttonStyles from "assets/css/button-styles.module.css";
+import LoadingOverlay from "components/common/LoadingOverlay";
 
 const heightFull = {
 	height: "100vh"
@@ -27,7 +29,7 @@ function ViewHotel({ match }) {
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
 
 	const { mutate: readHotel, data } = useReadHotelMutation();
-	const { mutate: getSessionId, data: sessionId } = useStripeSessionMutation();
+	const { mutate: getSessionId, data: res, isLoading, isSuccess } = useStripeSessionMutation();
 
 	useEffect(() => {
 		readHotel(match.params.hotelId);
@@ -45,6 +47,23 @@ function ViewHotel({ match }) {
 	const handleClick = () => {
 		getSessionId(match.params.hotelId);
 	};
+
+	useEffect(() => {
+		if (res) {
+			try {
+				(async () => {
+					let stripe = "";
+					stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+					console.log(stripe);
+					stripe.redirectToCheckout({
+						sessionId: res.data.sessionId
+					});
+				})();
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	}, [res]);
 
 	return (
 		<Fragment>
@@ -81,9 +100,13 @@ function ViewHotel({ match }) {
 							</div>
 						</div>
 					</div>
-					6
 				</div>
 			</div>
+			{isLoading && !isSuccess ? (
+				<LoadingOverlay isActive={true} spinner text="Loading Hotel" />
+			) : (
+				<Fragment></Fragment>
+			)}
 		</Fragment>
 	);
 }

@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useAuthContext } from "context/Auth";
 import HotelForm from "components/form/hotel/HotelForm";
 import { useCreateHotelMutation } from "framework/basic-rest/hotel/use-hotel";
+import LoadingOverlay from "components/common/LoadingOverlay";
 
 const heightFull = {
 	height: "100vh"
@@ -57,8 +58,8 @@ function NewHotel() {
 	};
 
 	return (
-		user && (
-			<Fragment>
+		<Fragment>
+			{user && (
 				<div className="container-fluid">
 					<div className="row" style={heightFull}>
 						<div className="col-md-6 offset-md-3 d-flex align-items-center">
@@ -92,8 +93,13 @@ function NewHotel() {
 						</div>
 					</div>
 				</div>
-			</Fragment>
-		)
+			)}
+			{isLoading && !isSuccess ? (
+				<LoadingOverlay isActive={true} spinner text="Adding Hotel" />
+			) : (
+				<Fragment></Fragment>
+			)}
+		</Fragment>
 	);
 }
 

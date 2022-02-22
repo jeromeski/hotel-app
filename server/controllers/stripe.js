@@ -83,7 +83,7 @@ export const getAccountBalance = async (req, res) => {
 	}
 };
 
-export const payoutSetting = async (req, res) => {
+export const payoutSettings = async (req, res) => {
 	try {
 		const user = await User.findById(req.user._id).exec();
 
@@ -104,7 +104,7 @@ export const stripeSessionId = async (req, res) => {
 		const { hotelId } = req.body;
 		// 2 find the hotel based on hotel id from db
 		const item = await Hotel.findById(hotelId).populate("postedBy").exec();
-		if (!item) return res.send("Id not found");
+		if (!item) return res.status(400).json({ message: "Hotel ID not found" });
 		// 3 20% charge as application fee
 		const fee = (item.price * 20) / 100;
 		// 4 create a session
@@ -128,7 +128,7 @@ export const stripeSessionId = async (req, res) => {
 				}
 			},
 			// success and calcel urls
-			success_url: process.env.STRIPE_SUCCESS_URL,
+			success_url: `${process.env.STRIPE_SUCCESS_URL}/${item._id}`,
 			cancel_url: process.env.STRIPE_CANCEL_URL
 		});
 

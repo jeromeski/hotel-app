@@ -1,3 +1,4 @@
+import LoadingOverlay from "components/common/LoadingOverlay";
 import EditForm from "components/form/hotel/EditForm";
 import { useReadHotelMutation, useUpdateHotelMutation } from "framework/basic-rest/hotel/use-hotel";
 import React, { Fragment, useEffect, useState } from "react";
@@ -95,9 +96,7 @@ function EditHotel({ match }) {
 							</div>
 							<div className="row">
 								<div className="col-md-8">
-									{isLoading_read ? (
-										<h1>Loading...</h1>
-									) : data?.data ? (
+									{data && data.data && (
 										<EditForm
 											handleImageChange={handleImageChange}
 											handleChange={handleChange}
@@ -108,8 +107,6 @@ function EditHotel({ match }) {
 											values={values}
 											initialState={initialState}
 										/>
-									) : (
-										<Fragment></Fragment>
 									)}
 								</div>
 								<div className="col-md-4">
@@ -122,6 +119,11 @@ function EditHotel({ match }) {
 					</div>
 				</div>
 			</div>
+			{(isLoading_read && !isSuccess_read) || (isLoading_edit && !isSuccess_edit) ? (
+				<LoadingOverlay isActive={true} spinner text="Merging your updates" />
+			) : (
+				<Fragment></Fragment>
+			)}
 		</Fragment>
 	);
 }
