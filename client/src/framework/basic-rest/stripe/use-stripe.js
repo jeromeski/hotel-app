@@ -86,12 +86,12 @@ export function useStripeSessionMutation() {
 }
 
 async function onPaymentSuccess(hotelId) {
-  return await http_stripe(API_ENDPOINTS.STRIPE_PAYMENT_SUCCESS, hotelId)
+	return await http_stripe.post(API_ENDPOINTS.STRIPE_PAYMENT_SUCCESS, { hotelId });
 }
 
-export function useStripeSuccessRequest(){
-  return useMutation((hotelId) => onPaymentSuccess(hotelId),{
-    onSuccess: ({data}) => {},
-    onError: ({error}) => {}
-  })
+export function useStripeSuccessRequest() {
+	return useMutation((id) => onPaymentSuccess(id), {
+		onSuccess: ({ data }) => {},
+		onError: ({ error }) => {}
+	});
 };
