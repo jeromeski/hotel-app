@@ -3,6 +3,7 @@ import { useAuthContext } from "context/Auth";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 import DashboardSeller from "./DashboardSeller";
 import buttonStyles from "assets/css/button-styles.module.css";
+import DashboardUser from "./DashboardUser";
 
 function DashboardNav() {
 	const { state } = useAuthContext();
@@ -19,18 +20,7 @@ function DashboardNav() {
 			</TabList>
 			<TabPanels>
 				<TabPanel>
-					<div className="container">
-						<div className="row">
-							<div className="col-md-8 mt-5 d-flex justify-content-center">
-								<h2>Bookings</h2>
-							</div>
-							<div className="col-md-4 mt-5 d-flex justify-content-center">
-								<button className={buttonStyles.button} type="button">
-									Browse hotels
-								</button>
-							</div>
-						</div>
-					</div>
+					<DashboardUser />
 				</TabPanel>
 				<TabPanel>
 					<DashboardSeller />

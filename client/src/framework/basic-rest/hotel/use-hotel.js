@@ -66,3 +66,25 @@ export function useUpdateHotelMutation() {
 	});
 }
 
+async function onUserHotelBookings() {
+	return await http_hotel.get(API_ENDPOINTS.USER_HOTEL_BOOKINGS);
+}
+
+export function useHotelBookingsMutation() {
+	return useMutation(() => onUserHotelBookings(), {
+		onSuccess: ({ data }) => {},
+		onError: ({ error }) => {}
+	});
+}
+
+async function isAlreadyBooked(hotelId) {
+	return await http_hotel.get(API_ENDPOINTS.BOOKED_HOTEL(hotelId));
+}
+
+export function useIsAlreadyBookedMutation() {
+	return useMutation((id) => isAlreadyBooked(id), {
+		onSuccess: ({ data }) => {},
+		onError: ({ error }) => {}
+	});
+}
+

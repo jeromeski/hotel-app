@@ -1,5 +1,8 @@
 import { useAuthContext } from "context/Auth";
-import { useReadHotelMutation } from "framework/basic-rest/hotel/use-hotel";
+import {
+	useIsAlreadyBookedMutation,
+	useReadHotelMutation
+} from "framework/basic-rest/hotel/use-hotel";
 import { useStripeSessionMutation } from "framework/basic-rest/stripe/use-stripe";
 import moment from "moment";
 import { loadStripe } from "@stripe/stripe-js";
@@ -27,9 +30,11 @@ function ViewHotel({ match }) {
 	const { auth } = state;
 	const [hotel, setHotel] = useState(initialState);
 	const [preview, setPreview] = useState("https://via.placeholder.com/100x100.png?text=PREVIEW");
+	const [alreadyBooked, setAlreadyBooked] = useState(false);
 
 	const { mutate: readHotel, data } = useReadHotelMutation();
 	const { mutate: getSessionId, data: res, isLoading, isSuccess } = useStripeSessionMutation();
+	const { mutate: isAlreadyBooked, data: res_booked } = useIsAlreadyBookedMutation();
 
 	useEffect(() => {
 		readHotel(match.params.hotelId);
@@ -49,12 +54,25 @@ function ViewHotel({ match }) {
 	};
 
 	useEffect(() => {
+		if (auth && auth.token) {
+			isAlreadyBooked(match.params.hotelId);
+		}
+	}, [auth, auth.token]);
+
+	useEffect(() => {
+		if (res_booked) {
+			if (res_booked.data.ok) {
+				setAlreadyBooked(true);
+			}
+		}
+	}, [res_booked]);
+
+	useEffect(() => {
 		if (res) {
 			try {
 				(async () => {
 					let stripe = "";
 					stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
-					console.log(stripe);
 					stripe.redirectToCheckout({
 						sessionId: res.data.sessionId
 					});
@@ -93,8 +111,13 @@ function ViewHotel({ match }) {
 									<button
 										type="button"
 										onClick={handleClick}
-										className={`${buttonStyles.button} mt-3`}>
-										{auth && auth.token ? "Book Now" : "Login to Book"}
+										className={`${buttonStyles.button} mt-3`}
+										disabled={alreadyBooked}>
+										{alreadyBooked
+											? "Already Booked"
+											: auth && auth.token
+											? "Book Now"
+											: "Login to Book"}
 									</button>
 								</div>
 							</div>

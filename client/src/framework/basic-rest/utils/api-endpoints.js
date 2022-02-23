@@ -9,6 +9,8 @@ export const API_ENDPOINTS = {
 	STRIPE_SETTINGS: "/payout-settings",
 	STRIPE_SESSION: "/stripe-session-id",
 	STRIPE_PAYMENT_SUCCESS: "/stripe-success",
+	USER_HOTEL_BOOKINGS: "/user-hotel-bookings",
+	BOOKED_HOTEL: (id) => `/is-already-booked/${id}`,
 	CREATE_HOTEL: "/create-hotel",
 	HOTELS: "/hotels",
 	SELLER_HOTELS: "/seller-hotels",

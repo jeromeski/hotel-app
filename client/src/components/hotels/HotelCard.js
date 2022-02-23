@@ -8,81 +8,82 @@ import { currencyFormatter, diffDays } from "utils";
 
 const HotelCard = ({ hotel, owner, handleDeleteHotel }) => {
 	const history = useHistory();
-	return hotel ? (
-		<Card>
-			<CardHeader>
-				<div className={cardStyles.thumbnail}>
-					<Link to={`/hotel/${hotel._id}`}>
-						{hotel.image && hotel.image.contentType ? (
-							<img
-								src={`${process.env.REACT_APP_BACKEND_URL}/hotel/image/${hotel._id}`}
-								alt={`${slugify(hotel.title)}`}
-								className="card-image img img-fluid"
-							/>
-						) : (
-							<img
-								src="https://via.placeholder.com/900x500.png?text=MERN+Booking"
-								alt={`${slugify(hotel.title)}`}
-								className="card-image img img-fluid"
-							/>
-						)}
-					</Link>
-				</div>
-				<span className={cardStyles.price}>
-					{currencyFormatter({ amount: hotel.price, currency: "usd" })}
-				</span>
-			</CardHeader>
-			<CardBody>
-				<h1 className={`${cardStyles.title}`}>{hotel.title}</h1>
-				<p className="text-muted">{hotel.location}</p>
-				<p className={`text-muted ${cardStyles.content}`}>
-					{`${hotel.content.substring(0, 100)}... `}{" "}
-					<Link to={`/hotel/${hotel._id}`}>Show More</Link>
-				</p>
-				<p className="text-muted">
-					<b>Beds :</b> {hotel.bed}
-				</p>
-				<p className="text-muted">
-					<b>Availability :</b> {new Date(hotel.from).toLocaleDateString()} to{" "}
-					{new Date(hotel.to).toLocaleDateString()}
-				</p>
-				<p>
-					<span className="text-primary">
-						for {diffDays(hotel.from, hotel.to)}{" "}
-						{diffDays(hotel.from, hotel.to) <= 1 ? " day" : " days"} only.
+  console.log(hotel);
+	return (
+		hotel && (
+			<Card>
+				<CardHeader>
+					<div className={cardStyles.thumbnail}>
+						<Link to={`/hotel/${hotel._id}`}>
+							{hotel.image && hotel.image.contentType ? (
+								<img
+									src={`${process.env.REACT_APP_BACKEND_URL}/hotel/image/${hotel._id}`}
+									alt={`${slugify(hotel.title)}`}
+									className="card-image img img-fluid"
+								/>
+							) : (
+								<img
+									src="https://via.placeholder.com/900x500.png?text=MERN+Booking"
+									alt={`${slugify(hotel.title)}`}
+									className="card-image img img-fluid"
+								/>
+							)}
+						</Link>
+					</div>
+					<span className={cardStyles.price}>
+						{currencyFormatter({ amount: hotel.price, currency: "usd" })}
 					</span>
-				</p>
-			</CardBody>
-			<CardFooter>
-				<div className="d-flex justify-content-between">
-					<button
-						type="button"
-						className={buttonStyles.button}
-						onClick={() => history.push(`/hotel/${hotel._id}`)}>
-						Show More
-					</button>
-					{owner && (
-						<Fragment>
-							<button
-								type="button"
-								className={buttonStyles.button}
-								onClick={() => history.push(`/hotel/edit/${hotel._id}`)}>
-								Edit
-							</button>
-							<button
-								type="button"
-								className={buttonStyles.button}
-								onClick={() => handleDeleteHotel(hotel._id)}>
-								Delete
-							</button>
-						</Fragment>
-					)}
-				</div>
-			</CardFooter>
-		</Card>
-	) : (
-		<Fragment></Fragment>
-	);
+				</CardHeader>
+				<CardBody>
+					<h1 className={`${cardStyles.title}`}>{hotel.title}</h1>
+					<p className="text-muted">{hotel.location}</p>
+					<p className={`text-muted ${cardStyles.content}`}>
+						{`${hotel.content.substring(0, 100)}... `}{" "}
+						<Link to={`/hotel/${hotel._id}`}>Show More</Link>
+					</p>
+					<p className="text-muted">
+						<b>Beds :</b> {hotel.bed}
+					</p>
+					<p className="text-muted">
+						<b>Availability :</b> {new Date(hotel.from).toLocaleDateString()} to{" "}
+						{new Date(hotel.to).toLocaleDateString()}
+					</p>
+					<p>
+						<span className="text-primary">
+							for {diffDays(hotel.from, hotel.to)}{" "}
+							{diffDays(hotel.from, hotel.to) <= 1 ? " day" : " days"} only.
+						</span>
+					</p>
+				</CardBody>
+				<CardFooter>
+					<div className="d-flex justify-content-between">
+						<button
+							type="button"
+							className={buttonStyles.button}
+							onClick={() => history.push(`/hotel/${hotel._id}`)}>
+							Show More
+						</button>
+						{owner && (
+							<Fragment>
+								<button
+									type="button"
+									className={buttonStyles.button}
+									onClick={() => history.push(`/hotel/edit/${hotel._id}`)}>
+									Edit
+								</button>
+								<button
+									type="button"
+									className={buttonStyles.button}
+									onClick={() => handleDeleteHotel(hotel._id)}>
+									Delete
+								</button>
+							</Fragment>
+						)}
+					</div>
+				</CardFooter>
+			</Card>
+		)
+	); 
 };
 
 export default HotelCard;

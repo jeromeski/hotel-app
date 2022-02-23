@@ -25,6 +25,8 @@ const Home = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSuccess]);
 
+  console.log(hotels);
+
 	return (
 		<Fragment>
 			<div className="container" style={customContainerStyles}>

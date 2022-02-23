@@ -3,13 +3,14 @@ import TextError from "components/form/TextError";
 import TextInput from "components/form/TextInput";
 
 import { useLoginMutation } from "framework/basic-rest/auth/use-login";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import buttonStyles from "assets/css/button-styles.module.css";
+import LoadingOverlay from "components/common/LoadingOverlay";
 
 const Login = () => {
-	const { mutate: signIn, isLoading, isError } = useLoginMutation();
+	const { mutate: signIn, isLoading, isError, isSuccess } = useLoginMutation();
 
 	const {
 		formState: { errors },
@@ -26,8 +27,15 @@ const Login = () => {
 		}
 		signIn(data);
 		reset();
-		history.push("/");
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			history.push("/");
+		} else if (isError) {
+			history.push("/login");
+		}
+	}, [isSuccess, isError]);
 
 	return (
 		<Fragment>
@@ -58,6 +66,7 @@ const Login = () => {
 					</div>
 				</div>
 			</div>
+			{isLoading && !isSuccess && <LoadingOverlay isActive={true} spinner text="Adding Hotel" />}
 		</Fragment>
 	);
 };

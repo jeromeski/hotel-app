@@ -1,20 +1,10 @@
 import React, { Fragment } from "react";
 
-function HotelsResourceLoader({
-	hotels,
-	owner,
-	resourceName,
-	itemComponent: Component,
-	handleDeleteHotel
-}) {
+function HotelsResourceLoader({ hotels, resourceName, itemComponent: Component, ...props }) {
 	return hotels ? (
 		hotels.map((hotel) => (
-			<div className={`${owner ? "col-md-6" : "col-md-4"}`} key={hotel._id}>
-				<Component
-					{...{ [resourceName]: hotel }}
-					owner={owner}
-					handleDeleteHotel={handleDeleteHotel}
-				/>
+			<div className="col-md-6" key={hotel._id}>
+				<Component {...{ [resourceName]: hotel }} {...props} />
 			</div>
 		))
 	) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import Portal from "@reach/portal";
-import styled, { css } from "styled-components/macro";
 import { LoadingOutlined } from "@ant-design/icons";
+import styled, { css } from "styled-components/macro";
 
 const OverlayBackground = styled.div`
 	${({ isActive }) => {

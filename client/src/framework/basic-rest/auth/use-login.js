@@ -19,6 +19,10 @@ export function useLoginMutation() {
 		onError: ({ response: { data } }) => {
 			console.log(data);
 			toast.error(data);
+      const timer = setTimeout(() => {
+				window.location.reload();
+				clearTimeout(timer);
+			}, 1000);
 		}
 	});
 }
